@@ -5,18 +5,19 @@ public class Tv{
   private class Canal{
 
     private int numeroCanal;
-    private float frequencia[2];
+    private float frequencia;
     private Canal next;
 
-    public Canal(int numeroCanal, float frequenciaX, float frequenciaY, Canal next){
+    /* construtor */
+    public Canal(int numeroCanal, float frequencia, Canal next){
         this.numeroCanal = numeroCanal;
-        this.frequencia[0] = frequenciaX;
-        this.frequencia[1] = frequenciaY;
+        this.frequencia = frequencia;
         this.next = next;
     }
 
+    /* Metodos do canal */
     public int getNome(){ return numeroCanal; }
-    public float[] getFrequencia(){ return frequencia; }
+    public float getFrequencia(){ return frequencia; }
     public Canal getNext(){ return next; }
     public void setNext(Canal c){ next = c;}
 
@@ -24,9 +25,11 @@ public class Tv{
 
   private boolean on;
   private boolean mute;
-  private Canal canal; /* @TODO criar classe canal */
-  private int qtdCanais;
   private int volume;
+  private int qtdCanais;
+  private Canal canal; /* @TODO Obj canal atual */
+  private Canal proxCanal;
+  private Canal antCanal;
 
   /* Construtores */
   public Tv(){
@@ -82,6 +85,12 @@ public class Tv{
     canal = new Canal(numero, x, y, null);
     canal.setNext();
     qtdCanais++;
+  }
+
+  /* @TODO Metodo seleciona o canal atraves do numero */
+  public void selecionaCanal(int n){
+
+
   }
 
   /* @TODO Metodo para aumentar Canal 0 até 100 */

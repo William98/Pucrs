@@ -1,0 +1,45 @@
+# depslib dependency file v1.0
+1523296067 source:/home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/ArquivoTexto.cpp
+	<iostream>
+	<fstream>
+	"ArquivoTexto.h"
+
+1523295473 source:/home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/LinhaTexto.cpp
+	<iostream>
+	<fstream>
+	"LinhaTexto.h"
+
+1523293823 source:/home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/ListaOrdenadaDePalavras.cpp
+	<iostream>
+	<fstream>
+	"ListaOrdenadaDePalavras.h"
+
+1523295994 source:/home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/main.cpp
+	<iostream>
+	"ArquivoTexto.h"
+	"LinhaTexto.h"
+	"ListaOrdenadaDePalavras.h"
+
+1523291578 /home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/ArquivoTexto.h
+	<fstream>
+
+1523291520 /home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/LinhaTexto.h
+
+1523276717 /home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/ListaOrdenadaDePalavras.h
+	"Palavra.h"
+
+1523292901 /home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/Palavra.h
+	"Ocorrencia.h"
+
+1523293555 /home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/Ocorrencia.h
+
+1523293597 source:/home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/Ocorrencia.cpp
+	<iostream>
+	<fstream>
+	"Ocorrencia.h"
+
+1523293612 source:/home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/Palavra.cpp
+	<iostream>
+	<fstream>
+	"Palavra.h"
+
