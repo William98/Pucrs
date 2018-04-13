@@ -49,12 +49,15 @@ public class ArrayQueue{
   }
   // size(): retorna o número de elementos da fila;
   int size(){
+    
     return 0;
   }
-  // isEmpty(): retorna um booleano indicando se a fila não contém elementos.
+  // isEmpty(): retorna um booleano indicando se a fila não contém elementos. -- OK
   boolean isEmpty(){
     if(((inicio == 0) && (inicio == fim)) || ((inicio == fim) && (fila_cheia == false)))
-    return false;
+      return true;
+    else
+      return false;
   }
 
 
