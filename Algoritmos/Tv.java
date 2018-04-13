@@ -14,19 +14,24 @@ public class Tv{
         this.frequencia = frequencia;
         this.next = next;
     }
+    public Canal(int numeroCanal, Canal next){
+      this.numeroCanal = numeroCanal;
+      this.frequencia = 0.0;
+      this.next = next;
+    }
 
     /* Metodos do canal */
     public int getNome(){ return numeroCanal; }
     public float getFrequencia(){ return frequencia; }
     public Canal getNext(){ return next; }
     public void setNext(Canal c){ next = c;}
+    public void imprimiCanal(){}; /* @TODO metodo para imprimir canal */
 
   }
 
   private boolean on;
   private boolean mute;
   private int volume;
-  private int qtdCanais;
   private Canal canal; /* @TODO Obj canal atual */
   private Canal proxCanal;
   private Canal antCanal;
@@ -62,12 +67,15 @@ public class Tv{
 
   /* Metodo para aumentar Volume */
   public void aumentaVolume(){
-    if(volume<100){
+    if(!on)
+      System.out.println("TV desligada");
+    else 
+      if(volume<100 && !mute){
         volume++;
-    }
-    else{
-        System.out.println("Volume está no máximo");
-    }
+      }
+      else{
+        System.out.println("Volume está no máximo ou mute");
+      }
   }
 
   /* Metodo para diminuir Volume */
@@ -81,8 +89,8 @@ public class Tv{
   }
 
   /* @TODO Metodo storeCanal */
-  public void storeCanal(int numero, float x, float y){
-    canal = new Canal(numero, x, y, null);
+  public void storeCanal(int numero, float x){
+    canal = new Canal(numero, x, null);
     canal.setNext();
     qtdCanais++;
   }
