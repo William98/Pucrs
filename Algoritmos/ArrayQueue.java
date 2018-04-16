@@ -15,7 +15,7 @@ public class ArrayQueue{
     this.fim = 0;
   }
 
-  // enqueue(e): adiciona o elemento e ao final da fila; @TODO Ajustar entrada de item
+  // enqueue(e): adiciona o elemento e ao final da fila;
   void enqueue(String e){
     /* Se o ultimo elemento da fila é não é a posicao zero e se o ultimo e o primeira são os mesmos */
     if((fim > 0) && (fim == inicio)){
@@ -31,32 +31,34 @@ public class ArrayQueue{
         if((fim == tamanho) && (inicio > 0)){
           fim = 0;
           dado[fim] = e;
+          System.out.println("Item inserido " + dado[fim]);
           fim++;
-          System.out.println("Item inserido");
-           /* Senão insere o elemento no final da fila */
+          /* Senão insere o elemento no final da fila */
         }else{
           dado[fim] = e;
+          System.out.println("Item inserido " + dado[fim]);
           fim++;
-          System.out.println("Item inserido.");
         }
       }
     }
   }
 
-  // dequeue(): remove e retorna o primeiro elemento da fila; @TODO remover item da vetor
-  void dequeue(){
+  // dequeue(): remove e retorna o primeiro elemento da fila;
+  String dequeue(){
     if(((inicio == 0) && (inicio == fim)) || ((inicio == fim) && (!fila_cheia))){
       System.out.println("Fila vazia.");
+      return null;
     }else{
       if(inicio == tamanho){
         inicio = 0;
-        inicio++;
       }
+      inicio++;
     }
+    return dado[inicio];
   }
 
   // first(): retorna o primeiro sem removê-lo;
-  int first(){
+  String first(){
     return dado[inicio];
   }
   // size(): retorna o número de elementos da fila;
@@ -81,5 +83,32 @@ public class ArrayQueue{
       return true;
     else
       return false;
+  }
+  public static void main(String[] args){
+      ArrayQueue myQueue = new ArrayQueue(5);
+      myQueue.enqueue("Neo"); 
+      myQueue.enqueue("Trinity"); 	
+      myQueue.enqueue("Smith"); 
+      myQueue.enqueue("Morpheus"); 
+      myQueue.enqueue("Alex");
+      System.out.println("Primeiro: "+ myQueue.first());
+      System.out.println("Queue size: " + myQueue.size());
+      System.out.println("----------------------------------");
+      myQueue.enqueue("Alexsander");
+      System.out.println("Removendo da Fila.\nPrimeiro: "+myQueue.dequeue());
+      System.out.println("----------------------------------");
+      myQueue.enqueue("Alexsander");
+      System.out.println("----------------------------------");
+      System.out.println("Removendo da Fila.\nPrimeiro: "+myQueue.dequeue());
+      System.out.println("----------------------------------");
+      System.out.println("Removendo da Fila.\nPrimeiro: "+myQueue.dequeue());
+      System.out.println("----------------------------------");
+      System.out.println("Removendo da Fila.\nPrimeiro: "+myQueue.dequeue());
+      System.out.println("----------------------------------");
+      myQueue.enqueue("Lucas");
+      myQueue.enqueue("Jonas");
+      myQueue.enqueue("Vladmir");
+      myQueue.enqueue("Arthur");
+      System.out.println("----------------------------------");
   }
 }
