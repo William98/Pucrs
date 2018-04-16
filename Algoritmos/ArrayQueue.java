@@ -1,3 +1,11 @@
+/**
+ * Classe ArrayQueue
+ *
+ * @author: Arthur D'Arisbo e Lucas Ribeiro
+ * @methods: enqueue, dequeue, first, size and isEmpty
+ * 
+ */
+
 public class ArrayQueue{
 
   private int tamanho;
@@ -16,6 +24,7 @@ public class ArrayQueue{
   }
 
   // enqueue(e): adiciona o elemento e ao final da fila;
+  // @param String e - é o valor a ser adicionado na fila.
   void enqueue(String e){
     /* Se o ultimo elemento da fila é não é a posicao zero e se o ultimo e o primeira são os mesmos */
     if((fim > 0) && (fim == inicio)){
@@ -27,7 +36,7 @@ public class ArrayQueue{
         fila_cheia = true;
         System.out.println("Fila Cheia");
       }else{
-        /*  */
+        /* Verifica se o tamanho foi removido algum item da fila e adiciona no "inicio" */
         if((fim == tamanho) && (inicio > 0)){
           fim = 0;
           dado[fim] = e;
@@ -45,10 +54,12 @@ public class ArrayQueue{
 
   // dequeue(): remove e retorna o primeiro elemento da fila;
   String dequeue(){
+    // Verifica se a fila esta vazia antes de remover
     if(((inicio == 0) && (inicio == fim)) || ((inicio == fim) && (!fila_cheia))){
       System.out.println("Fila vazia.");
       return null;
     }else{
+      // Verifica se o inicio da fila é igual ao tamanho original e move o indice para o proximo
       if(inicio == tamanho){
         inicio = 0;
       }
@@ -64,9 +75,11 @@ public class ArrayQueue{
   // size(): retorna o número de elementos da fila;
   int size(){
     int size = 0; 
+    // Verifica se a fila esta vazia.
     if(((inicio == 0) && (inicio == fim)) || ((inicio == fim) && (fila_cheia == false))){
       System.out.println("Fila vazia");
       return size;
+    // Calcula o tamanho da fila
     }else{
       if(inicio < fim)
         size = fim - inicio;
