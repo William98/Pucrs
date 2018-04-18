@@ -1,55 +1,37 @@
-package televisao;
+ 
+
+import java.util.Random;
 
 public class Tv{
 
   private class Canal{
 
-    private int numeroCanal;
+    private String nome;
     private float frequencia;
     private Canal next;
 
     /* construtor */
-    public Canal(int numeroCanal, float frequencia, Canal next){
-        this.numeroCanal = numeroCanal;
-        this.frequencia = frequencia;
-        this.next = next;
-    }
-    public Canal(int numeroCanal, Canal next){
-      this.numeroCanal = numeroCanal;
-      this.frequencia = 0.0;
-      this.next = next;
-    }
-
-    /* Metodos do canal */
-    public int getNome(){ return numeroCanal; }
-    public float getFrequencia(){ return frequencia; }
-    public Canal getNext(){ return next; }
-    public void setNext(Canal c){ next = c;}
-    public void imprimiCanal(){}; /* @TODO metodo para imprimir canal */
+    public Canal(){nome = "Canal vazio"; frequencia = 0;}
+    public Canal(String n, float f){nome = n; frequencia = f;}
 
   }
 
   private boolean on;
   private boolean mute;
   private int volume;
-  private Canal canal; /* @TODO Obj canal atual */
-  private Canal proxCanal;
-  private Canal antCanal;
+  /* @TODO Canais */
+  private Canal canal = null; 
+  private Canal first = null;
+  private Canal last = null;
+  private int size = 0;
 
-  /* Construtores */
+  /* Construtor */
   public Tv(){
     on = false;
     mute = false;
     volume = 0;
-    qtdCanais = 0;
   }
-  public Tv(boolean on, boolean mute, Canal canal, int volume){
-    this.on = on;
-    this.mute = mute;
-    this.canal = canal;
-    this.volume = volume;
-  }
-
+  
   /* Metodo para ligar/desligar TV */
   public void Power(){
     if(!on){ on = true; }
@@ -57,61 +39,129 @@ public class Tv{
   }
 
   /* Metodo para obter volume */
-  public int getVolume(){
-    if(mute){
-      System.out.System.out.println("MUTE");
-      return 0;
-    }
-    return volume;
+  public void mute(){
+    if(!mute){mute = true;}
+    else{mute = false;}
   }
 
   /* Metodo para aumentar Volume */
   public void aumentaVolume(){
     if(!on)
       System.out.println("TV desligada");
-    else 
-      if(volume<100 && !mute){
-        volume++;
+    else{
+      if(mute){
+          System.out.println("MUTE");
+      }else{
+        if(volume<100){
+            volume++;
+        }
+        else{
+            System.out.println("Volume está no máximo");
+        }
       }
-      else{
-        System.out.println("Volume está no máximo ou mute");
-      }
+    }
   }
 
   /* Metodo para diminuir Volume */
   public void diminuiVolume(){
-    if(volume>0){
-      volume--;
+    if(!on)
+      System.out.println("TV desligada");
+    else{
+      if(mute){
+          System.out.println("MUTE");
+      }else{
+          if(volume>0){
+              volume--;
+          }
+          else{
+              System.out.println("Volume está no mínimo");
+          }
+      }
+    }
+  }
+
+  /*  Metodo storeCanal recebe como parametro o nome do canal */
+  public void storeChannel(String n){
+    float f = (float) (40.0 + Math.random() * (60.0 - 40.0)); // gera frequencia aleatoria
+    Canal canal = new Canal(n, f);
+    if (size == 0){
+      last = canal;
+      first = last;
     }
     else{
-      System.out.println("Volume está no mínimo");
+      last.next = canal;
+      last = canal;
     }
+    size++;
   }
 
-  /* @TODO Metodo storeCanal */
-  public void storeCanal(int numero, float x){
-    canal = new Canal(numero, x, null);
-    canal.setNext();
-    qtdCanais++;
+  /* Metodo seleciona o canal atraves do nome. @TODO quando canal não existe  */
+  public Canal selecionaCanal(String n){
+    Canal aux = first;
+    if(size == 0){
+      return null;
+    }
+    for(int i = 0; i < size; i++){
+      if(aux.nome == n){
+          return aux;
+      }
+      aux = aux.next;
+    }        
+    return null;
   }
 
-  /* @TODO Metodo seleciona o canal atraves do numero */
-  public void selecionaCanal(int n){
-
-
-  }
-
-  /* @TODO Metodo para aumentar Canal 0 até 100 */
+  /* @TODO Metodo para aumentar Canal 0 até 99 */
   public void aumentaCanal(){
 
   }
 
-  /* @TODO Metodo para diminuir Canal 0 até 100 */
+  /* @TODO Metodo para diminuir Canal 0 até 99 */
   public void diminuiCanal(){
 
   }
 
+  /* Metodo para obter informações sobre os status da televisão*/
+  public void getInfo(){
+    if(on){
+      System.out.println(""); // on/off
+      if (!mute)
+        System.out.println("Volume: "+this.volume); // volume  
+      else    
+        System.out.println("Volume mutado");
+      System.out.println("Canal: "+this.canal.nome); // canal
+    }else{
+      System.out.println("Aparelho Desligado");
+    }
+  }
 
+  public static void main(String[] args){
+    Tv tv = new Tv();
+    tv.Power(); // Ligo a TV
+    
+    // Cadastro canais aleatórios
+    tv.storeChannel("GLOBO");
+    tv.storeChannel("TVE");
+    tv.storeChannel("SBT");
+    tv.storeChannel("BAND");
+    tv.storeChannel("RECORD");
 
+    tv.canal = tv.selecionaCanal("TVE");
 
+    tv.aumentaVolume();
+    tv.mute(); // mute ON
+    tv.aumentaVolume();
+    tv.mute(); // mute OFF
+    tv.aumentaVolume();
+    tv.aumentaVolume();
+
+    tv.getInfo();
+
+    tv.diminuiVolume();
+    tv.diminuiVolume();
+    tv.diminuiVolume();
+    tv.diminuiVolume(); // erro volume esta em zero
+
+    tv.getInfo();
+
+  }
 }
