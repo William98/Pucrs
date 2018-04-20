@@ -2,7 +2,24 @@ Enviem um arquivo ".zip" contendo códigos fontes em Java ou então pdfs com tex
 
 Exercício 1) Escreva um método em Java que leia um número natural n e retorne o somatório de todos quadrados entre 1 e n (inclusive).
 
+public int funcao(int n){
+  if(n > 1){
+    int soma = 0;
+    for(int i = 1; i <= n; i++){
+      soma = soma + (i * i);
+    }
+    return soma;
+  }
+  System.out.println("Numero menor que 1");
+  return 0;
+}
+
 Exercício 2) Crie um método para retornar o penúltimo elemento de uma lista simplesmente encadeada.
+
+public Node getPElemento(){
+
+
+}
 
 Exercício 3) Crie um método para encontrar o elemento que fica exatamente no meio de uma lista duplamente encadeada. A lista possui os dois sentinelas trailer e header conforme visto em aula. O método não deve usar a informação de tamanho da lista. Se a lista tiver um número par de elementos, retorne o elemento mais esquerda do centro.
 
@@ -14,6 +31,10 @@ Exercício 6) Escreva um método para reverter o conteúdo de uma lista simplesm
 
 Exercício 7) Supondo uma fila inicial vazia, quais são os valores retornados a partir da seguinte sequência de operações executada sobre a mesma fila: enqueue(5), enqueue(3), dequeue(), enqueue(2), enqueue(8), dequeue(), dequeue(), enqueue(9), enqueue(1), dequeue(), enqueue(7), enqueue(6), dequeue(), dequeue(), enqueue(4), dequeue(), dequeue().
 
+- A fila possui o elemento 4.
+
 Exercício 8) Suponha que você tenha um deque D que contém os seguintes números na mesma ordem (1, 2, 3, 4, 5, 6, 7, 8). Além disso, suponha que você tenha uma fila vazia Q. Indique qual é sequência de operações que precisa ser feita usando tanto o deque D quanto a fila Q que com que D possua os seguintes elementos na mesma ordem: (1, 2, 3, 5, 4, 6, 7, 8).
+
+
 
 Exercício 9) Agora suponha que ao invés de começar com uma fila vazia Q, você comece com um pilha vazia S.
