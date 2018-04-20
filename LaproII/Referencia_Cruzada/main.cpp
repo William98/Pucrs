@@ -26,14 +26,14 @@ int main()
         }
         nLinha++; // conta mais uma linha lida do arquivo
         Linha.setTexto(L); // define o texto da linha
-        do // laço que passa em cada palavra de uma linha
-        {
-	// obtém a próxima palavra da linha
-          fimLinha = Linha.getNextPal(Palavra);
-          if (fimLinha==1)
-             break;
-          Lista.adicionaPalavra(Palavra, nLinha); // coloca a palavra na lista
-        } while (1);
+//        do // laço que passa em cada palavra de uma linha
+//        {
+//	// obtém a próxima palavra da linha
+//          fimLinha = Linha.getNextPal(Palavra);
+//          if (fimLinha==1)
+//             break;
+//          Lista.adicionaPalavra(Palavra, nLinha); // coloca a palavra na lista
+//        } while (1);
     } while (1);
 	// Imprime toda a lista de palavras e suas ocorrências
 //	Lista.imprimeListaPalavras();
