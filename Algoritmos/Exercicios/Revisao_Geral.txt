@@ -1,0 +1,19 @@
+Enviem um arquivo ".zip" contendo códigos fontes em Java ou então pdfs com texto.
+
+Exercício 1) Escreva um método em Java que leia um número natural n e retorne o somatório de todos quadrados entre 1 e n (inclusive).
+
+Exercício 2) Crie um método para retornar o penúltimo elemento de uma lista simplesmente encadeada.
+
+Exercício 3) Crie um método para encontrar o elemento que fica exatamente no meio de uma lista duplamente encadeada. A lista possui os dois sentinelas trailer e header conforme visto em aula. O método não deve usar a informação de tamanho da lista. Se a lista tiver um número par de elementos, retorne o elemento mais esquerda do centro.
+
+Exercício 4) Implemente o método equals para testar se duas listas duplamente encadeadas possuem os mesmos elementos e na mesma ordem.
+
+Exercício 5) Implemente uma versão circular da lista duplamente encadeada que dê suporte, sem o uso de sentinelas, a todos os métodos originais da lista circular. Também adicione dois métodos novos: rotate() e rotateBackward(). O primeiro método desloca o início da lista para o próximo elemento e o segundo, para o elemento anterior.
+
+Exercício 6) Escreva um método para reverter o conteúdo de uma lista simplesmente encadeada sem criar uma nova lista.
+
+Exercício 7) Supondo uma fila inicial vazia, quais são os valores retornados a partir da seguinte sequência de operações executada sobre a mesma fila: enqueue(5), enqueue(3), dequeue(), enqueue(2), enqueue(8), dequeue(), dequeue(), enqueue(9), enqueue(1), dequeue(), enqueue(7), enqueue(6), dequeue(), dequeue(), enqueue(4), dequeue(), dequeue().
+
+Exercício 8) Suponha que você tenha um deque D que contém os seguintes números na mesma ordem (1, 2, 3, 4, 5, 6, 7, 8). Além disso, suponha que você tenha uma fila vazia Q. Indique qual é sequência de operações que precisa ser feita usando tanto o deque D quanto a fila Q que com que D possua os seguintes elementos na mesma ordem: (1, 2, 3, 5, 4, 6, 7, 8).
+
+Exercício 9) Agora suponha que ao invés de começar com uma fila vazia Q, você comece com um pilha vazia S.
