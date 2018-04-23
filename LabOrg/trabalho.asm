@@ -24,23 +24,27 @@ main:
 	la	$t0, ANOS		# Carrega o ponteiro para matriz ANOS
 	la	$t1, LINHA		# Carrega o ponteiro para LINHA
 	la	$t2, COLUNA		# Carrega o ponteiro para COLUNA
-
 	######################################################################
 	la	$a0, TEXTO_1		# Carrega o texto a ser exibido
-	jal	imprimir
+	jal	imprimir		# Chamada da funcao imprimir TEXTO_1
 	li	$v0, 5			# Preparo programa para capturar valor
-	syscall
+	syscall				# Chamada do sistema para receber inteiro
+	######################################################################
 	lw	$t4, 0($t1)		# Carrega o valor da LINHA no $t4
 	lw	$t5, 0($t2)		# Carrega o valor da COLUNA em $t5
-	blez	$v0, main		# if valor informado < 0 salta para main
-	bgtu	$v0, $t4, main		# if valor informado >= LINHA salta para main
+	bltz	$v0, main		# if valor informado < 0 salta para main
+	bge	$v0, $t4, main		# if valor informado >= LINHA salta para main
 	######################################################################
+	li	$s0, 14			# Carrega 14 em $s0
+	move	$t6, $v0		# Carrega o valor da linha desejada em $t6
+	mul	$s0, $s0, $t6		# Multiplica linha desejada * 14 
+	add	$t0, $t0, $s0		# Incrementa o endereço até o primeiro ANO da LINHA
+	######################################################################
+	lw	$t3, 0($t0)		# @TODO apresenta erro quando linha informada é 1 e 3
 	
-	move	$t3, $v0		# Carrega o valor da linha desejada em $t3
-	mul	$s0, $t3, $t5		# Multiplica linha desejada pela COLUNA
-	mul	$s0, $s0, 4		# Multiplica por 4 o valor obtido -> quanto posicoes de memoria andar
+		
 	
-	add	$t0, $t0, $s0			
+	
 	
 
 	j	exit
