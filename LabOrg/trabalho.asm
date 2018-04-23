@@ -35,12 +35,12 @@ main:
 	bltz	$v0, main		# if valor informado < 0 salta para main
 	bge	$v0, $t4, main		# if valor informado >= LINHA salta para main
 	######################################################################
-	li	$s0, 14			# Carrega 14 em $s0
+	li	$s0, 0x14		# Carrega 0x14 em $s0
 	move	$t6, $v0		# Carrega o valor da linha desejada em $t6
 	mul	$s0, $s0, $t6		# Multiplica linha desejada * 14 
 	add	$t0, $t0, $s0		# Incrementa o endereço até o primeiro ANO da LINHA
 	######################################################################
-	lw	$t3, 0($t0)		# @TODO apresenta erro quando linha informada é 1 e 3
+	lw	$t3, 0($t0)		# @TODO apresenta erro quando linha informada é 1 e 3 essa porra é hexadecimal burro
 	
 		
 	
