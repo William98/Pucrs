@@ -30,19 +30,25 @@ main:
 	jal	imprimir
 	li	$v0, 5			# Preparo programa para capturar valor
 	syscall
-	lw	$t3, 0($t1)		# Carrega o valor da linha no $t0
+	lw	$t4, 0($t1)		# Carrega o valor da LINHA no $t4
+	lw	$t5, 0($t2)		# Carrega o valor da COLUNA em $t5
 	blez	$v0, main		# if valor informado < 0 salta para main
-	bgtu	$v0, $t3, main		# if valor informado >= LINHA salta para main
+	bgtu	$v0, $t4, main		# if valor informado >= LINHA salta para main
 	######################################################################
 	
+	move	$t3, $v0		# Carrega o valor da linha desejada em $t3
+	mul	$s0, $t3, $t5		# Multiplica linha desejada pela COLUNA
+	mul	$s0, $s0, 4		# Multiplica por 4 o valor obtido -> quanto posicoes de memoria andar
 	
-		
+	add	$t0, $t0, $s0			
+	
+
 	j	exit
-	
+
 exit:
 	li	$v0, 10
 	syscall
-	
+
 imprimir:
 	li	$v0, 4
 	syscall
