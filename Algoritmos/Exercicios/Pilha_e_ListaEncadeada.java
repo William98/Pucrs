@@ -1,3 +1,7 @@
+/*
+ * @author: Arthur D'Arisbo e Lucas Ribeiro
+ */
+
 // Exercicio 2
 
 // imprime Fila
