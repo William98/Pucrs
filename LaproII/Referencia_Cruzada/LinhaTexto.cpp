@@ -34,11 +34,13 @@ int LinhaTexto::getNextPal (string &P)
 void LinhaTexto::removePontuacao()
 {
     int pos=0;
-    while(Linha[pos]!='.')
+    while(Linha[pos]!='\0')
     {
+      if ((Linha[pos]=='.') || (Linha[pos]==','))
+      {
+        Linha.erase(pos,1);
+      }
         pos++;
-
     }
-    Linha.erase(pos,1);
 
 }
