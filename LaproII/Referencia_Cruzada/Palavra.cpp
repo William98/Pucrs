@@ -7,6 +7,7 @@ using namespace std;
 
 
 string Palavra::getS(){
+
     return s;
 }
 

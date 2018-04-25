@@ -26,16 +26,22 @@ int main()
         }
         nLinha++; // conta mais uma linha lida do arquivo
         Linha.setTexto(L); // define o texto da linha
-//        do // laço que passa em cada palavra de uma linha
-//        {
-//	// obtém a próxima palavra da linha
-//          fimLinha = Linha.getNextPal(Palavra);
-//          if (fimLinha==1)
-//             break;
+        //int k = Linha.getNextPal(Palavra);
+        //cout << "Palavra: " << Palavra <<k<< endl;
+        do // laço que passa em cada palavra de uma linha
+        {
+	// obtém a próxima palavra da linha
+          fimLinha = Linha.getNextPal(Palavra);
+          //cout<<"Palavra: "<<Palavra<<endl;
+          //cout<<"Linha: "<<Linha.getTexto()<<endl;
+
+          if (fimLinha==1)
+            break;
+          cout<<"Palavra: "<<Palavra<<endl;
 //          Lista.adicionaPalavra(Palavra, nLinha); // coloca a palavra na lista
-//        } while (1);
+        } while (1);
     } while (1);
 	// Imprime toda a lista de palavras e suas ocorrências
-//	Lista.imprimeListaPalavras();
+	//Lista.imprimeListaPalavras();
     return 0;
 }
