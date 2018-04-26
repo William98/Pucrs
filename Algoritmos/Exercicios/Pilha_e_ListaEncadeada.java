@@ -87,7 +87,7 @@ class CircularlyLinkedQueue{
     }
 
     public void enqueue(String d){
-        if(size < 10)
+        if(size < limit)
             addBetween(d, header, header.getNext());
         else
             System.out.println("Fila Cheia");

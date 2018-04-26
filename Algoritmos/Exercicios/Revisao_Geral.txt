@@ -80,8 +80,79 @@ public class CircularyDoublyLinkedList{
       private Node next;
 
       public Node(String d, Node p, Node n){ dado = d; prev = p; next = n; }
+      public Node getPrev(){ return prev; }
+      public void setPrev(Node p){ prev = p; }
+      public Node getNext(){ return next; }
+      public void setNext(Node n){ next = n; }
     }
 
+    public Node header = null;
+    public Node trailer = null;
+    public int size = 0;
+    public int limite = 10;
+
+    CircularyDoublyLinkedList(){
+      header = new Queue(null, null, null);
+      trailer = new Queue(null, header, null);
+      header.setNext(trailer);
+    }
+
+    public int getSize(){ return size; }
+
+    public void addBetween(String d, Node p, Node n){
+      Node aux = new Node(d, p ,n);
+      p.setNext(aux);
+      n.setPrev(aux);
+      size++;
+    }
+
+    public void addFirst(String d){
+      if(size < limit){
+          addBetween(d, header, header.getNext());
+      }
+      else{
+        System.out.println("Lista Cheia");
+      }
+    }
+
+    public void addLast(String d){
+      if(size < limit){
+        addBetween(d, trailer, trailer.getPrev());
+      }
+      else{
+        System.out.println("Lista Cheia");
+      }
+    }
+
+    public void removeFirst(){
+      if(size > 0 ){
+        header = header.getNext();
+        size--;
+      }
+      else{
+        System.out.println("Lista Vazia");
+      }
+    }
+
+    public void removeLast(){
+      if(){
+        trailer = trailer.getPrev();
+        size--;
+      }
+      else{
+        System.out.println("Lista Vazia");
+      }
+    }
+
+    public void rotate(){
+      trailer = trailer.getNext();
+      header = header.getNext();
+    }
+
+    public void rotateBackward(){
+      header = header.getPrev();
+      trailer = trailer.getPrev();
+    }
 }
 
 Exercício 6) Escreva um método para reverter o conteúdo de uma lista simplesmente encadeada sem criar uma nova lista.
@@ -94,6 +165,9 @@ Exercício 7) Supondo uma fila inicial vazia, quais são os valores retornados a
 
 Exercício 8) Suponha que você tenha um deque D que contém os seguintes números na mesma ordem (1, 2, 3, 4, 5, 6, 7, 8). Além disso, suponha que você tenha uma fila vazia Q. Indique qual é sequência de operações que precisa ser feita usando tanto o deque D quanto a fila Q que com que D possua os seguintes elementos na mesma ordem: (1, 2, 3, 5, 4, 6, 7, 8).
 
-
+  for(int i = 0; i < 8; i++){
+    Q.addLast(D.top());
+    D.dequeue();
+  }
 
 Exercício 9) Agora suponha que ao invés de começar com uma fila vazia Q, você comece com um pilha vazia S.
