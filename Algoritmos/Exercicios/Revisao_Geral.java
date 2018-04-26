@@ -1,0 +1,166 @@
+/*
+ * @author: Arthur D'Arisbo e Lucas Ribeiro
+ */
+
+// Exercício 1) Escreva um método em Java que leia um número natural n e retorne o somatório de todos quadrados entre 1 e n (inclusive).
+
+public int funcao(int n){
+  if(n > 1){
+    int soma = 0;
+    for(int i = 1; i <= n; i++){
+      soma = soma + (i * i);
+    }
+    return soma;
+  }
+  System.out.println("Numero menor que 1");
+  return 0;
+}
+
+// Exercício 2) Crie um método para retornar o penúltimo elemento de uma lista simplesmente encadeada.
+
+public Node getPElemento(){
+  Node aux = head;
+  while(aux.getNext() != tail){
+    aux = aux.getNext();
+  }
+  return aux;
+}
+
+// Exercício 3) Crie um método para encontrar o elemento que fica exatamente no meio de uma lista duplamente encadeada. A lista possui os dois sentinelas trailer e header conforme visto em aula. O método não deve usar a informação de tamanho da lista. Se a lista tiver um número par de elementos, retorne o elemento mais esquerda do centro.
+
+public Node middle(){
+  Node aux = header;
+  int i = 0;
+  // Obtem o tamanho da lista
+  while(aux.getNext() != trailer){
+    aux = aux.getNext();
+    i++;
+  }
+  // verifica se o tamanho é par
+  if((i % 2) == 0){
+    // Volta na lista até Node central a esquerda
+    for(int k = 0; k < (i/2); k++){
+      aux = aux.getPrev();
+    }
+  }else{
+    // Volta na lista até o Node central
+    for(int k = 0; k <= (i/2); k++){
+      aux = aux.getPrev();
+    }
+  }
+}
+
+// Exercício 4) Implemente o método equals para testar se duas listas duplamente encadeadas possuem os mesmos elementos e na mesma ordem.
+
+public boolean isEquals(DoublyLinkedList l1, DoublyLinkedList l2){
+  Node aux1 = l1.header;
+  Node aux2 = l2.header;
+
+  while(1){
+    if(aux1 != aux2){
+      return false;
+    }
+    aux1 = aux1.getNext();
+    aux2 = aux2.getNext();
+
+    if(aux1 == l1.trailer && aux2 == l2.trailer)
+      break;
+    if(aux1 == l1.trailer || aux2 == l2.trailer)
+      return false;
+  }
+
+  return true;
+
+}
+
+// Exercício 5) Implemente uma versão circular da lista duplamente encadeada que dê suporte, sem o uso de sentinelas, a todos os métodos originais da lista circular. Também adicione dois métodos novos: rotate() e rotateBackward(). O primeiro método desloca o início da lista para o próximo elemento e o segundo, para o elemento anterior.
+
+public class CircularyDoublyLinkedList{
+    private class Node{
+      private String dado;
+      private Node prev;
+      private Node next;
+
+      public Node(String d, Node p, Node n){ dado = d; prev = p; next = n; }
+      public Node getPrev(){ return prev; }
+      public void setPrev(Node p){ prev = p; }
+      public Node getNext(){ return next; }
+      public void setNext(Node n){ next = n; }
+    }
+
+    public Node header = null;
+    public Node trailer = null;
+    public int size = 0;
+    public int limite = 10;
+
+    CircularyDoublyLinkedList(){
+      header = new Queue(null, null, null);
+      trailer = new Queue(null, header, null);
+      header.setNext(trailer);
+    }
+
+    public int getSize(){ return size; }
+
+    public void addBetween(String d, Node p, Node n){
+      Node aux = new Node(d, p ,n);
+      p.setNext(aux);
+      n.setPrev(aux);
+      size++;
+    }
+
+    public void addFirst(String d){
+      if(size < limit){
+          addBetween(d, header, header.getNext());
+      }
+      else{
+        System.out.println("Lista Cheia");
+      }
+    }
+
+    public void addLast(String d){
+      if(size < limit){
+        addBetween(d, trailer, trailer.getPrev());
+      }
+      else{
+        System.out.println("Lista Cheia");
+      }
+    }
+
+    public void removeFirst(){
+      if(size > 0 ){
+        header = header.getNext();
+        size--;
+      }
+      else{
+        System.out.println("Lista Vazia");
+      }
+    }
+
+    public void removeLast(){
+      if(){
+        trailer = trailer.getPrev();
+        size--;
+      }
+      else{
+        System.out.println("Lista Vazia");
+      }
+    }
+
+    public void rotate(){
+      trailer = trailer.getNext();
+      header = header.getNext();
+    }
+
+    public void rotateBackward(){
+      header = header.getPrev();
+      trailer = trailer.getPrev();
+    }
+}
+
+
+// Exercício 8) Suponha que você tenha um deque D que contém os seguintes números na mesma ordem (1, 2, 3, 4, 5, 6, 7, 8). Além disso, suponha que você tenha uma fila vazia Q. Indique qual é sequência de operações que precisa ser feita usando tanto o deque D quanto a fila Q que com que D possua os seguintes elementos na mesma ordem: (1, 2, 3, 5, 4, 6, 7, 8).
+
+  for(int i = 0; i < 8; i++){
+    Q.addLast(D.top());
+    D.dequeue();
+  }
