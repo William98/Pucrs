@@ -73,7 +73,16 @@ public boolean isEquals(DoublyLinkedList l1, DoublyLinkedList l2){
 
 Exercício 5) Implemente uma versão circular da lista duplamente encadeada que dê suporte, sem o uso de sentinelas, a todos os métodos originais da lista circular. Também adicione dois métodos novos: rotate() e rotateBackward(). O primeiro método desloca o início da lista para o próximo elemento e o segundo, para o elemento anterior.
 
-class
+public class CircularyDoublyLinkedList{
+    private class Node{
+      private String dado;
+      private Node prev;
+      private Node next;
+
+      public Node(String d, Node p, Node n){ dado = d; prev = p; next = n; }
+    }
+
+}
 
 Exercício 6) Escreva um método para reverter o conteúdo de uma lista simplesmente encadeada sem criar uma nova lista.
 
