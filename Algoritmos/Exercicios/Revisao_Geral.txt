@@ -1,4 +1,6 @@
-Enviem um arquivo ".zip" contendo códigos fontes em Java ou então pdfs com texto.
+/*
+ * @author: Arthur D'Arisbo e Lucas Ribeiro
+ */
 
 Exercício 1) Escreva um método em Java que leia um número natural n e retorne o somatório de todos quadrados entre 1 e n (inclusive).
 
