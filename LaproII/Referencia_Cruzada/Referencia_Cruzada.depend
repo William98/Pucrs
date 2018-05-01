@@ -1,88 +1,45 @@
 # depslib dependency file v1.0
-1523296067 source:/home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/ArquivoTexto.cpp
+1525174434 source:/home/lucas/Github/Pucrs/LaproII/Referencia_Cruzada/ArquivoTexto.cpp
 	<iostream>
 	<fstream>
 	"ArquivoTexto.h"
 
-1523295473 source:/home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/LinhaTexto.cpp
+1525158993 /home/lucas/Github/Pucrs/LaproII/Referencia_Cruzada/ArquivoTexto.h
+	<fstream>
+
+1525174422 source:/home/lucas/Github/Pucrs/LaproII/Referencia_Cruzada/LinhaTexto.cpp
 	<iostream>
 	<fstream>
 	"LinhaTexto.h"
 
-1523293823 source:/home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/ListaOrdenadaDePalavras.cpp
+1525172351 /home/lucas/Github/Pucrs/LaproII/Referencia_Cruzada/LinhaTexto.h
+
+1525180789 source:/home/lucas/Github/Pucrs/LaproII/Referencia_Cruzada/ListaOrdenadaDePalavras.cpp
 	<iostream>
 	<fstream>
+	<algorithm>
 	"ListaOrdenadaDePalavras.h"
 
-1523295994 source:/home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/main.cpp
-	<iostream>
-	"ArquivoTexto.h"
-	"LinhaTexto.h"
-	"ListaOrdenadaDePalavras.h"
-
-1523291578 /home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/ArquivoTexto.h
-	<fstream>
-
-1523291520 /home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/LinhaTexto.h
-
-1523276717 /home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/ListaOrdenadaDePalavras.h
+1525177245 /home/lucas/Github/Pucrs/LaproII/Referencia_Cruzada/ListaOrdenadaDePalavras.h
 	"Palavra.h"
 
-1523292901 /home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/Palavra.h
+1525182341 /home/lucas/Github/Pucrs/LaproII/Referencia_Cruzada/Palavra.h
 	"Ocorrencia.h"
 
-1523293555 /home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/Ocorrencia.h
+1525171333 /home/lucas/Github/Pucrs/LaproII/Referencia_Cruzada/Ocorrencia.h
 
-1523293597 source:/home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/Ocorrencia.cpp
-	<iostream>
-	<fstream>
-	"Ocorrencia.h"
-
-1523293612 source:/home/17111178/DriveH/2018-1/LaproII/Referencia_Cruzada/Palavra.cpp
-	<iostream>
-	<fstream>
-	"Palavra.h"
-
-1524678933 source:/home/17111252/Downloads/Referencia_Cruzada/ArquivoTexto.cpp
-	<iostream>
-	<fstream>
-	"ArquivoTexto.h"
-
-1523537508 /home/17111252/Downloads/Referencia_Cruzada/ArquivoTexto.h
-	<fstream>
-
-1524681049 source:/home/17111252/Downloads/Referencia_Cruzada/LinhaTexto.cpp
-	<iostream>
-	<fstream>
-	"LinhaTexto.h"
-
-1524681169 /home/17111252/Downloads/Referencia_Cruzada/LinhaTexto.h
-
-1523537508 source:/home/17111252/Downloads/Referencia_Cruzada/ListaOrdenadaDePalavras.cpp
-	<iostream>
-	<fstream>
-	"ListaOrdenadaDePalavras.h"
-
-1523537508 /home/17111252/Downloads/Referencia_Cruzada/ListaOrdenadaDePalavras.h
-	"Palavra.h"
-
-1523537510 /home/17111252/Downloads/Referencia_Cruzada/Palavra.h
-	"Ocorrencia.h"
-
-1523537508 /home/17111252/Downloads/Referencia_Cruzada/Ocorrencia.h
-
-1524680531 source:/home/17111252/Downloads/Referencia_Cruzada/main.cpp
+1525179722 source:/home/lucas/Github/Pucrs/LaproII/Referencia_Cruzada/main.cpp
 	<iostream>
 	"ArquivoTexto.h"
 	"LinhaTexto.h"
 	"ListaOrdenadaDePalavras.h"
 
-1523537508 source:/home/17111252/Downloads/Referencia_Cruzada/Ocorrencia.cpp
+1525160574 source:/home/lucas/Github/Pucrs/LaproII/Referencia_Cruzada/Ocorrencia.cpp
 	<iostream>
 	<fstream>
 	"Ocorrencia.h"
 
-1524677804 source:/home/17111252/Downloads/Referencia_Cruzada/Palavra.cpp
+1525182332 source:/home/lucas/Github/Pucrs/LaproII/Referencia_Cruzada/Palavra.cpp
 	<iostream>
 	<fstream>
 	"Palavra.h"

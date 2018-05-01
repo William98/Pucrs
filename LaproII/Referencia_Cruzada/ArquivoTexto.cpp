@@ -8,13 +8,13 @@ using namespace std;
 
 int ArquivoTexto::openText(string Nome)
 {
-    arquivo.open(Nome, ios::in);
+    arquivo.open("lorem.txt", ios::in);
     if(!arquivo)
     {
         cout << "Falha na abertura do arquivo." << endl;
         return 1;
     }
-    cout << "funcionou" <<endl;
+    cout << "Funcionou." <<endl;
     return 0;
 }
 

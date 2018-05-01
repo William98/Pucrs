@@ -1,5 +1,8 @@
 #ifndef ARQUIVOTEXTO_H_INCLUDED
 #define ARQUIVOTEXTO_H_INCLUDED
+
+using namespace std;
+
 #include <fstream>
 
 class ArquivoTexto{

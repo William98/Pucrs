@@ -7,7 +7,7 @@ using namespace std;
 
 void LinhaTexto::setTexto(string L)
 {
-    Linha = L;
+    this->Linha = L;
 
 }
 string LinhaTexto::getTexto()
@@ -21,7 +21,6 @@ int LinhaTexto::getNextPal (string &P)
     int pos=0;
     if(Linha=="\0")
         return 1;
-    removePontuacao();
     while(Linha[pos]!=' ')
     {
         pos++;
@@ -31,6 +30,13 @@ int LinhaTexto::getNextPal (string &P)
 
     return 0;
 }
+
+int LinhaTexto::getNextPal (string &P, int p)
+{
+  // ajustar para pegar posicao
+  return 0;
+}
+
 void LinhaTexto::removePontuacao()
 {
     int pos=0;

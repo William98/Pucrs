@@ -8,7 +8,7 @@ using namespace std;
 
 int main()
 {
-    int nLinha =0, fimArquivo, fimLinha; // flags
+    int nLinha = 0, fimArquivo, fimLinha; // flags
     string Palavra, L;
 
     ListaOrdenadaDePalavras Lista; // objeto que gerencia a lista
@@ -21,27 +21,24 @@ int main()
     {
         fimArquivo = Arquivo.getNextLine(L);
         if (fimArquivo==1){
-            cout << "deu ruim. fim do arquivo" << endl;
+            cout << "Fim do arquivo" << endl;
             break;
         }
         nLinha++; // conta mais uma linha lida do arquivo
         Linha.setTexto(L); // define o texto da linha
-        //int k = Linha.getNextPal(Palavra);
-        //cout << "Palavra: " << Palavra <<k<< endl;
+        Linha.removePontuacao();
         do // laço que passa em cada palavra de uma linha
         {
-	// obtém a próxima palavra da linha
-          fimLinha = Linha.getNextPal(Palavra);
-          //cout<<"Palavra: "<<Palavra<<endl;
-          //cout<<"Linha: "<<Linha.getTexto()<<endl;
+            fimLinha = Linha.getNextPal(Palavra);
+            if (fimLinha==1)
+                break;
+            if(Palavra.size() > 3){
 
-          if (fimLinha==1)
-            break;
-          cout<<"Palavra: "<<Palavra<<endl;
-//          Lista.adicionaPalavra(Palavra, nLinha); // coloca a palavra na lista
+                Lista.adicionaPalavra(Palavra, nLinha); // coloca a palavra na lista            }
+          }
         } while (1);
     } while (1);
 	// Imprime toda a lista de palavras e suas ocorrências
-	//Lista.imprimeListaPalavras();
+	Lista.imprimeListaPalavras();
     return 0;
 }

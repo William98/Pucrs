@@ -1,6 +1,4 @@
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-Testando Se vai pegar linha por linha.
-Jonas
-Laureano
-Dos
-Santos
+Uma lista ligada ou lista encadeada e uma estrutura de dados linear e dinamica. Ela e composta por celulas que apontam para o proximo elemento da lista. Para ter uma lista encadeada, basta guardar seu primeiro elemento, e seu ultimo elemento aponta para uma celula nula.
+Para inserir dados ou remover dados e necessario ter um ponteiro que aponte para o primeiro elemento e outro que aponte para o fim, porque se queremos inserir ou apagar dados que estao nessas posicoes, a operacao e rapidamente executada. Caso seja necessario editar um no que esteja no meio da lista havera uma busca pela posicao desejada.
+A insercao ou remocao de um elemento na lista nao implica a mudanca de lugar de outros elementos.
+Nao e necessario definir, no momento da criacao da lista, o número maximo de elementos que esta podera ter. Ou seja, e possivel alocar memoria dinamicamente, apenas para o numero de nos necessarios.
