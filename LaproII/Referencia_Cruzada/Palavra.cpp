@@ -30,14 +30,13 @@ void Palavra::setProx(Palavra* p){
 }
 
 void Palavra::adicionaOcorrencia(int numeroParagrafo, int posicao){
-    Ocorrencia *aux = new Ocorrencia(numeroParagrafo, posicao);
-    // Verifica se já existe uma ocorrencia
-    if(ListaDeOcorrencias == NULL){
-
-    }else{
-        // Caso exista empilha a ocorrencia
-
+    if(ListaDeOcorrencias == NULL)
+        ListaDeOcorrencias = new Ocorrencia(numeroParagrafo, posicao);
+    else{
+        //Ocorrencia* oco = ListaDeOcorrencias->getProx();
 
     }
 
 }
+
+

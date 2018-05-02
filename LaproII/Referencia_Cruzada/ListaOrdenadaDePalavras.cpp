@@ -43,6 +43,10 @@ int ListaOrdenadaDePalavras::adicionaPalavra(string palavra, int numeroParagrafo
         }
         else{
             // Falta inserir palavra de forma alfabetica na lista
+            if(palavra[0] > ultPalavra->getS()[0])
+                cout << palavra[0] << ">" << ultPalavra->getS()[0] << endl;
+            else
+                cout << palavra[0] << "<" << ultPalavra->getS()[0] << endl;
             aux = new Palavra(palavra);
             ultPalavra->setProx(aux);
             ultPalavra = aux;
@@ -50,20 +54,17 @@ int ListaOrdenadaDePalavras::adicionaPalavra(string palavra, int numeroParagrafo
             qtdOcorrencias++;
         }
     }
-//    qtdOcorrencias++;
     return qtdOcorrencias;
 }
 
 void ListaOrdenadaDePalavras::ordenaLista(){
-//    Palavra* aux1 = primPalavra;
-//    Palavra* aux2 = ultPalavra;
-    //sort(aux1, aux2);
+
 }
 
 void ListaOrdenadaDePalavras::imprimeListaPalavras(){
     Palavra* aux = primPalavra;
     while(aux){
-        //cout << "Palavra: " << aux->getS() << endl;
+//        cout << "Palavra: " << aux->getS() << endl;
         aux = aux->getProx();
     }
     cout << qtdOcorrencias << endl;

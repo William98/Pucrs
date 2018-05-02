@@ -44,3 +44,48 @@
 	<fstream>
 	"Palavra.h"
 
+1525262997 source:/home/17111178/Github/Pucrs/LaproII/Referencia_Cruzada/ArquivoTexto.cpp
+	<iostream>
+	<fstream>
+	"ArquivoTexto.h"
+
+1525263014 /home/17111178/Github/Pucrs/LaproII/Referencia_Cruzada/ArquivoTexto.h
+	<fstream>
+
+1525259755 source:/home/17111178/Github/Pucrs/LaproII/Referencia_Cruzada/LinhaTexto.cpp
+	<iostream>
+	<fstream>
+	"LinhaTexto.h"
+
+1525259755 /home/17111178/Github/Pucrs/LaproII/Referencia_Cruzada/LinhaTexto.h
+
+1525264317 source:/home/17111178/Github/Pucrs/LaproII/Referencia_Cruzada/ListaOrdenadaDePalavras.cpp
+	<iostream>
+	<fstream>
+	<algorithm>
+	"ListaOrdenadaDePalavras.h"
+
+1525263361 /home/17111178/Github/Pucrs/LaproII/Referencia_Cruzada/ListaOrdenadaDePalavras.h
+	"Palavra.h"
+
+1525262248 /home/17111178/Github/Pucrs/LaproII/Referencia_Cruzada/Palavra.h
+	"Ocorrencia.h"
+
+1525259755 /home/17111178/Github/Pucrs/LaproII/Referencia_Cruzada/Ocorrencia.h
+
+1525264004 source:/home/17111178/Github/Pucrs/LaproII/Referencia_Cruzada/main.cpp
+	<iostream>
+	"ArquivoTexto.h"
+	"LinhaTexto.h"
+	"ListaOrdenadaDePalavras.h"
+
+1525259755 source:/home/17111178/Github/Pucrs/LaproII/Referencia_Cruzada/Ocorrencia.cpp
+	<iostream>
+	<fstream>
+	"Ocorrencia.h"
+
+1525262609 source:/home/17111178/Github/Pucrs/LaproII/Referencia_Cruzada/Palavra.cpp
+	<iostream>
+	<fstream>
+	"Palavra.h"
+

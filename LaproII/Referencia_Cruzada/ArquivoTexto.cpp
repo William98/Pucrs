@@ -8,13 +8,25 @@ using namespace std;
 
 int ArquivoTexto::openText(string Nome)
 {
-    arquivo.open("lorem.txt", ios::in);
+    arquivo.open(Nome, ios::in);
     if(!arquivo)
     {
         cout << "Falha na abertura do arquivo." << endl;
         return 1;
     }
-    cout << "Funcionou." <<endl;
+    return 0;
+}
+
+int ArquivoTexto::genText(string Nome, string Texto){
+    saida.open(Nome, ios::out);
+    if(!saida){
+        cout << "Falha na geracao do arquivo." << endl;
+        return 1;
+    }
+    cout << "Funcionou." << endl;
+
+    saida << Texto;
+    saida.close();
     return 0;
 }
 
