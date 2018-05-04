@@ -23,13 +23,13 @@
 .globl  main
 
 main:
-	la	$t0, ANOS		# Carrega o endere�o para "vetor" ANOS
-	la	$t1, LINHA		# Carrega o endere�o para LINHA
-	la	$t2, COLUNA		# Carrega o endere�o para COLUNA
-	la	$s0, COPA_CNT		# Carrega o endere�o para COPA_CNT
-	la	$s1, COPA_ANOS		# Carrega o endere�o para vetor COPA_ANOS 
-	la	$s2, OLIM_CNT		# Carrega o endere�o para OLIM_CNT
-	la	$s3, OLIM_ANOS		# Carrega o endere�o para vetor OLIM_ANOS
+	la	$t0, ANOS		# Carrega o endereco para "vetor" ANOS
+	la	$t1, LINHA		# Carrega o endereco para LINHA
+	la	$t2, COLUNA		# Carrega o endereco para COLUNA
+	la	$s0, COPA_CNT		# Carrega o endereco para COPA_CNT
+	la	$s1, COPA_ANOS		# Carrega o endereco para vetor COPA_ANOS
+	la	$s2, OLIM_CNT		# Carrega o endereco para OLIM_CNT
+	la	$s3, OLIM_ANOS		# Carrega o endereco para vetor OLIM_ANOS
 	lw	$s6, 0($s0)		# Carrega a Quantidade de Copas
 	lw	$s7, 0($s2)		# Carrega a Quantidade de Olimpiadas
 	lw	$t1, 0($t1)		# Carrega o valor da LINHA
@@ -41,107 +41,108 @@ linha:
 	li	$v0, 5			# Preparo programa para capturar valor
 	syscall				# Chamada do sistema para receber inteiro
 	blez	$v0, linha		# if valor informado <= 0 salta para linha
-	bge	$v0, $t1, linha		# if valor informado >= LINHA salta para linha
+	bgt	$v0, $t1, linha		# if valor informado >= LINHA salta para linha
 	move	$t3, $v0		# Carrega o valor da linha desejada
-	li	$t4, 4			# Distancia entre cada endere�o de memoria
-	mul	$t4, $t4, $t2		# Calcula quantos bits � acrescentado para o endere�o de memoria da linha desejada
+	li	$t4, 4			# Distancia entre cada endereco de memoria
+	mul	$t4, $t4, $t2		# Calcula quantos bits e acrescentado para o endereco de memoria da linha desejada
 	addi	$t3, $t3, -1		# Subtrai 1 da linha informada para calcular o endereço primeiro ano
-	mul	$t4, $t4, $t3		# Calcula o endere�o do primeiro ano a ser manipulado
-	
+	mul	$t4, $t4, $t3		# Calcula o endereco do primeiro ano a ser manipulado
 	add	$t0, $t0, $t4		# Recebe primeiro ano a ser calculado
 #########################################################################
 #		     Loop que executa as Funcoes			#
 #########################################################################
 loop1:
-	blez	$t2, final		# Verifica se o indice coluna � igual ou menor que zero
+	blez	$t2, final		# Verifica se o indice coluna e igual ou menor que zero
 	lw	$a2, 0($t0)		# Carrega o ano em $a2 para chamada de funcoes
 	jal	f_copa			# Chamada da funcao copa
 	bne	$v1, $zero, add_copa	# Verifica se a funcao retornou ano : Salta para adicionar ano
 	jal	f_olimpiada		# Chamada da funcao olimpiada
 	bne	$v1, $zero, add_olim	# Verifica se a funcao retornou ano: Salta para adicionar ano
-	j	loop2			# Caso nao haja ocorrencia salta para loop2		
+	j	loop2			# Caso nao haja ocorrencia salta para loop2
+
 add_copa:
 	# Adicionar ano na Copa
 	addiu	$s6, $s6, 1		# Adiciona uma ocorrencia no contador Copa
 	sw	$v1, 0($s1)		# Armazena no vetor ANOS_COPA
 	add	$s1, $s1, 4		# Aponta o endereco para proxima posicao do Vetor Copa
 	j	loop2			# Continua loop
-	
+
 add_olim:
 	# Adicionar ano na Olimpiada
 	addiu	$s7, $s7, 1		# Adiciona uma ocorrencia no contador Olimpiadas
 	sw	$v1, 0($s3)		# Armazena no vetor ANOS_OLIMPIADAS
 	add	$s3, $s3, 4		# Aponta o endereco para proxima posicao do Vetor Olimpiadas
 	j	loop2			# Continua loop
-	
+
 loop2:
 	add	$t0, $t0, 4		# Passa para a proxima posicao da linha
 	addiu	$t2, $t2, -1		# Decrementa o indice da coluna
 	j	loop1			# Salta sempre para o loop
 
 final:
-	#@TODO armazenar quantidade de copas e olimpiadas 
+	sw	$s6, 0($s0)		# Armazena o contador de COPAS
+	sw	$s7, 0($s2)		# Armazena o contador de OLIMPIADAS
 	la	$a0, TEXTO_2		# Carrega o texto a ser exibido
 	li	$a1, 4			# Parametro Syscall
 	jal	imprimir		# Imprimi o TEXTO_2
-	
+
 	move	$a0, $s6		# Carrega a quantida de copas
 	li	$a1, 1			# Parametro do Syscall
 	jal	imprimir		# Imprimi a quantidade de copas
-	
+
 	la	$a0, TEXTO_3		# Carrega o texto a ser exibido
 	li	$a1, 4			# Parametro do Syscall
 	jal	imprimir		# Imprimi o TEXTO_3
-	
-	la	$s1, COPA_ANOS
-	la	$s3, OLIM_ANOS 
+
+	la	$s1, COPA_ANOS		# Carrega novamente o endereco da primeira posicao do vetor COPA_ANOS 
+	la	$s3, OLIM_ANOS		# Carrega novamente o endereco da primeira posicao do vetor OLIM_ANOS
 loop3:
-	blez	$s6, final2
-	lw	$t3, 0($s1)
-	move	$a0, $t3
-	li	$a1, 1
-	jal	imprimir
-	
-	addiu	$s6, $s6, -1
-	blez	$s6, final2
-	
-	la	$a0, TEXTO_6
-	li	$a1, 4
-	jal	imprimir
-		
-	add	$s1, $s1, 4
-	j	loop3	
-	
+	blez	$s6, final2		# Verifica se a ocorrencias de copas for menor que zero ele salta para o final2
+	lw	$t3, 0($s1)		# Carrega o ano a ser exibido
+	move	$a0, $t3		# Carrega o ano em $a0 para chamada da Syscall
+	li	$a1, 1			# Parametro do Syscall
+	jal	imprimir		# Imprimi o ano
+
+	addiu	$s6, $s6, -1		# Decrementa a quantidade de ocorrencias
+	blez	$s6, final2		# Verifica se há ocorrencias : Salta para o final2
+
+	la	$a0, TEXTO_6		# Carrega o texto a ser exibido
+	li	$a1, 4			# Parametro do Syscall
+	jal	imprimir		# Imprimi o TEXTO_6
+
+	add	$s1, $s1, 4		# Incrementa para o proximo ano a ser exibido
+	j	loop3			# Salta para o loop3
+
 final2:
 	la	$a0, TEXTO_4		# Carrega o texto a ser exibido
 	li	$a1, 4			# Parametro Syscall
 	jal	imprimir		# Imprimi o TEXTO_4
-	
+
 	move	$a0, $s7		# Carrega a quantida de copas
 	li	$a1, 1			# Parametro do Syscall
 	jal	imprimir		# Imprimi a quantidade de copas
-	
+
 	la	$a0, TEXTO_5		# Carrega o texto a ser exibido
 	li	$a1, 4			# Parametro do Syscall
 	jal	imprimir		# Imprimi o TEXTO_5
 loop4:
-	blez	$s7, exit
-	lw	$t4, 0($s3)
-	move	$a0, $t4
-	li	$a1, 1
-	jal	imprimir
-	
-	addiu	$s7, $s7, -1
-	blez	$s7, exit
-	
-	la	$a0, TEXTO_6
-	li	$a1, 4
-	jal	imprimir
-	
-	add	$s3, $s3, 4
-	j	loop4
+	blez	$s7, exit		# Verifica se a ocorrencias de olimpiadas for menor que zero ele salta para exit
+	lw	$t4, 0($s3)		# Carrega o ano a ser exibido
+	move	$a0, $t4		# Carrega o ano em $a0 para chamada do Syscall
+	li	$a1, 1			# Parametro do Syscall
+	jal	imprimir		# Imprimi o ano
 
-exit:		
+	addiu	$s7, $s7, -1		# Decrementa a quantidade de ocorrencias
+	blez	$s7, exit		# Verifica se há ocorrencias : Salta ara o exit
+
+	la	$a0, TEXTO_6		# Carrega o texto a ser exibido
+	li	$a1, 4			# Parametro do Syscall
+	jal	imprimir		# Imprimi o TEXTO_6
+
+	add	$s3, $s3, 4		# Incrementa para o proximo ano a ser exibido
+	j	loop4			# Salta para loop4
+
+exit:
 	li	$v0, 10			# Finaliza o programa
 	syscall
 
@@ -150,24 +151,24 @@ exit:
 #########################################################################
 # Recebe a mensagem em $a0 e o tipo de Syscall em $a1
 imprimir:
-	move	$v0, $a1
+	move	$v0, $a1		# Carrega o Syscall passado pelo $a1
 	syscall
 	jr	$ra
-	
+
 #########################################################################
 # Recebe o ano a ser verificado em $a2 e retorna o ano em  $v1	caso haja ocorrencia
 f_copa:
 	li	$s4, 1930		# Carrega o inicio do intervalo
-	blt	$a2, $s4, copa_false	# Verifica se o ano � menor que 1930 : Salta para n�o armazenar
+	blt	$a2, $s4, copa_false	# Verifica se o ano e menor que 1930 : Salta para nao armazenar
 	li	$s4, 2018		# Carrega o final do intervalo
-	bgt	$a2, $s4, copa_false	# Verifica se o ano � maior que 2018 : Salta para n�o armazenar
+	bgt	$a2, $s4, copa_false	# Verifica se o ano e maior que 2018 : Salta para nao armazenar
 	subu	$s4, $s4, $a2		# 2018 - Ano
 copa_loop:
 	beq	$s4, $zero, copa_true	# Se resto for igual a 0 passa
 	subu 	$s4, $s4, 4		# Subtrai 4
-	bltz	$s4, copa_false		# Se resto for menor que 0 n�o passa
+	bltz	$s4, copa_false		# Se resto for menor que 0 nao passa
 	j	copa_loop		# Continua testando
-	
+
 copa_true:
 	move	$v1, $a2		# Armazena o ano em $v1
 	j	copa_fim		# Segue para fim da funcao
@@ -180,23 +181,23 @@ copa_fim:
 #########################################################################
 # Recebe o ano a ser verificado em $a2 e retorna o ano em $v1 caso haja ocorrencia
 f_olimpiada:
-	li	$s4, 1906		# Carrega a exce��o 1906
-	beq	$a2, $s4, olim_true	# Verifica se o ano � igual a 1906 : Salta para armazenar ano
-	li	$s4, 1916		# Carrega a excess�o 1916
-	beq	$a2, $s4, olim_false	# Verifica se o ano � igual a 1916 : Salta para n�o armazenar 
-	li	$s4, 1940		# Carrega a excess�o 1940
-	beq	$a2, $s4, olim_false	# Verifica se o ano � igual a 1940 : Salta para n�o armazenar
-	li	$s4, 1944		# Carrega a excess�o 1944
-	beq	$a2, $s4, olim_false 	# Verifica se o ano � igual a 1944 : Salta para n�o armazenar
+	li	$s4, 1906		# Carrega a excecao 1906
+	beq	$a2, $s4, olim_true	# Verifica se o ano e igual a 1906 : Salta para armazenar ano
+	li	$s4, 1916		# Carrega a excecao 1916
+	beq	$a2, $s4, olim_false	# Verifica se o ano e igual a 1916 : Salta para nao armazenar
+	li	$s4, 1940		# Carrega a excecao 1940
+	beq	$a2, $s4, olim_false	# Verifica se o ano e igual a 1940 : Salta para nao armazenar
+	li	$s4, 1944		# Carrega a excecao 1944
+	beq	$a2, $s4, olim_false 	# Verifica se o ano e igual a 1944 : Salta para nao armazenar
 	li	$s4, 1896		# Carrega o inicio do intervalo
-	blt	$a2, $s4, olim_false	# Verifica se o ano � menor que 1896 : Salta para n�o armazenar
+	blt	$a2, $s4, olim_false	# Verifica se o ano e menor que 1896 : Salta para nao armazenar
 	li	$s4, 2016		# Carrega o final do intervalo
-	bgt	$a2, $s4, olim_false	# Verifica se o ano � maior que 2016 : Salta para n�o armazenar
+	bgt	$a2, $s4, olim_false	# Verifica se o ano e maior que 2016 : Salta para nao armazenar
 	subu	$s4, $s4, $a2		# 2016 - Ano
 olim_loop:
 	beq	$s4, $zero, olim_true	# Se resto for igual a 0 passa
 	subu 	$s4, $s4, 4		# Subtrai 4
-	bltz	$s4, olim_false		# Se resto for menor que 0 n�o passa
+	bltz	$s4, olim_false		# Se resto for menor que 0 nao passa
 	j	copa_loop		# Continua testando
 
 olim_true:
