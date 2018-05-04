@@ -35,7 +35,6 @@ main:
 	lw	$t1, 0($t1)		# Carrega o valor da LINHA
 	lw	$t2, 0($t2)		# Carrega o valor da COLUNA
 linha:
-######################################################################### @TODO Verificar porque o intervalo começa em zero 
 	la	$a0, TEXTO_1		# Carrega o texto a ser exibido
 	li	$a1, 4			# Parametro Syscall
 	jal	imprimir		# Chamada da funcao imprimir TEXTO_1
