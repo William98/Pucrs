@@ -127,7 +127,7 @@ public class DoublyLinkedList{
      if(isEmpty())
       addBetween(d, header, header.getNext());
     else{
-      
+
     }
    }
    public void addBetween(String d, Node predecessor, Node successor) {
@@ -139,3 +139,8 @@ public class DoublyLinkedList{
 
 
  }
+
+/* @TODO
+ * 3 - Desenvolver metodo de busca binaria
+ *
+ */
