@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1526300873 source:/home/17111178/DriveH/2018-1/LaproII/ListaEncadeada/main.cpp
+	<iostream>
+	"ListaEncadeada.h"
+	"Pessoa.h"
+
+1526300895 /home/17111178/DriveH/2018-1/LaproII/ListaEncadeada/ListaEncadeada.h
+	<iostream>
+	"Pessoa.h"
+
+1526298629 /home/17111178/DriveH/2018-1/LaproII/ListaEncadeada/Pessoa.h
+	<iostream>
+
