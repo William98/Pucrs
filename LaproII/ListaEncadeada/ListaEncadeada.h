@@ -103,6 +103,7 @@ Pessoa *buscaAnterior(string fulano, string endereco)
 }
 Pessoa *retira(string Fulano, string endereco)
 {
+   
 // Crie um método que retire um elemento da lista.
 // Como parâmetro este método deve receber o nome de
 // uma pessoa a ser buscada na lista.
@@ -114,6 +115,14 @@ Pessoa *retira(string Fulano, string endereco)
 }
 Pessoa *retiraDoInicio()
 {
+    Pessoa *aux = inicio;
+        if(estaVazia() == 1)
+        {
+            return NULL;
+        }
+        else
+            inicio = aux->getProx();
+        return inicio;
 // Crie um método que remova um primeiro elemento da lista.
 // O método deve retornar um apontador para o elemento retirado da lista.
 // O método NÃO deve "deletar" o nodo da memória.
