@@ -11,3 +11,15 @@
 1526298629 /home/17111178/DriveH/2018-1/LaproII/ListaEncadeada/Pessoa.h
 	<iostream>
 
+1526475954 source:/home/17111178/Pucrs/LaproII/ListaEncadeada/main.cpp
+	<iostream>
+	"ListaEncadeada.h"
+	"Pessoa.h"
+
+1526477830 /home/17111178/Pucrs/LaproII/ListaEncadeada/ListaEncadeada.h
+	<iostream>
+	"Pessoa.h"
+
+1526475295 /home/17111178/Pucrs/LaproII/ListaEncadeada/Pessoa.h
+	<iostream>
+

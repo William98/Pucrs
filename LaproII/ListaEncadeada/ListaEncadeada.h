@@ -45,23 +45,22 @@ void inserePessoaNoFinal(string fulano, string endereco)
         fim =aux;
     }
 }
-    void imprimeLista()
+void imprimeLista()
+{
+    Pessoa *aux;
+    aux = inicio;
+    if (estaVazia() == 1)
     {
-        Pessoa *aux;
-        aux = inicio;
-        if (estaVazia() == 1)
-        {
-            cout << "Lista Vazia !" << endl;
-            return; // encerra o método aqui
-        }
-        cout << "----- INICIO DA LISTA -----" << endl;
-        while (aux != NULL)
-        {
-            aux->imprime();
-            aux = aux->getProx();
-        }
+       cout << "Lista Vazia !" << endl;
+       return; // encerra o método aqui
     }
-
+    cout << "----- INICIO DA LISTA -----" << endl;
+    while (aux != NULL)
+    {
+        aux->imprime();
+        aux = aux->getProx();
+    }
+}
 
 Pessoa *achaUltimo()
 {
@@ -85,25 +84,28 @@ Pessoa *buscaPessoa(string fulano, string endereco)
     }
     return NULL;
 }
-Pessoa *buscaAnterior(string fulano, string endereco)
+Pessoa *buscaAnterior(string fulano)
 {
     if(estaVazia() == 1)
         return NULL;
 
-    if((inicio->getNome() == fulano) && (inicio->getEnd() == endereco))
+    if(inicio->getNome() == fulano)
         return NULL;
-// Crie um método que devolva um ponteiro para o nodo da lista que
-// encontra-se ANTES do nodo que contém um certo elemento da lista.
-// Como parâmetro este método deve receber o nome de
-// uma pessoa a ser buscada na lista.
-// Caso o nome não exista na lista, o método deve devolver NULL.
-// Caso o nome seja o primeiro da lista o método deve devolver NULL. O
-// ideal é não chamar este quando "fulano" for o 1o. elemento da lista, ou seja,
-// deve-se testar isto antes de chamar este métodos
+
+    Pessoa *aux, *prox;
+    aux = inicio;
+    while(aux!= NULL){
+        prox = aux->getProx();
+        if(prox == NULL)
+            return NULL;
+        if(prox->getNome() == fulano)
+            return aux;
+        aux = prox;
+    }
 }
 Pessoa *retira(string Fulano, string endereco)
 {
-   
+
 // Crie um método que retire um elemento da lista.
 // Como parâmetro este método deve receber o nome de
 // uma pessoa a ser buscada na lista.
@@ -116,20 +118,35 @@ Pessoa *retira(string Fulano, string endereco)
 Pessoa *retiraDoInicio()
 {
     Pessoa *aux = inicio;
-        if(estaVazia() == 1)
-        {
-            return NULL;
-        }
-        else
-            inicio = aux->getProx();
-        return inicio;
-// Crie um método que remova um primeiro elemento da lista.
-// O método deve retornar um apontador para o elemento retirado da lista.
-// O método NÃO deve "deletar" o nodo da memória.
-// Caso a lista esteja vazia, o método deve devolver NULL.
+    if(estaVazia() == 1)
+        return NULL;
+    if(inicio == fim){
+            aux = inicio;
+            inicio = fim = NULL;
+            return aux;
+    }
+    aux = inicio;
+    inicio = aux->getProx();
+    return aux;
 }
 Pessoa *retiraDoFinal()
 {
+    Pessoa *aux = inicio;
+    if(estaVazia() == 1)
+        return NULL;
+    if(fim == fim){
+        aux = fim;
+        inicio = fim = NULL;
+        return aux;
+    }
+    while(aux->getProx()!=fim){
+        aux = aux->getProx();
+    }
+    fim = aux;
+    aux = aux->getProx();
+    fim->setProx(NULL);
+
+    return aux;
 // Crie um método que remova um último elemento da lista.
 // O método deve retornar um apontador para o elemento retirado da lista
 // O método NÃO deve "deletar" o nodo da memória.

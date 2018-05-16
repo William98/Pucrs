@@ -8,14 +8,14 @@ int  main()
     Pessoa *p;
 
     L1.imprimeLista();
-//    p = L1.retiraDoInicio();
-//    if (p != NULL)
-//    {
-//        cout << "Retirado do Inicio:";
-//        p->imprime();
-//        delete p;
-//    } else cout << "Lista vazia - Nao retirado do inicio" << endl;
-//
+    p = L1.retiraDoInicio();
+    if (p != NULL)
+    {
+        cout << "Retirado do Inicio:";
+        p->imprime();
+        delete p;
+    } else cout << "Lista vazia - Nao retirado do inicio" << endl;
+
     L1.inserePessoaNoFinal("Abel", "Ramiro");
     L1.inserePessoaNoFinal("Maria", "Ipiranga");
     L1.inserePessoaNoFinal("Cintia", "Getulio");
@@ -26,20 +26,20 @@ int  main()
     p = L1.buscaPessoa("Carla", "Bento");
     cout << p->getNome() << endl;
     cout << "==============" << endl ;
-//    p = L1.retiraDoInicio();
-//
-//    if (p != NULL)
-//    {
-//        cout << "Retirado do Inicio:";
-//        p->imprime();
-//        delete p;
-//    } else cout << "Lista vazia" << endl;
-//    cout << "==============" << endl ;
-//    p = L1.buscaAnterior("Abel", "Ramiro");
-//    if (p == NULL)
-//        cout << "Nao tem antes ou nao existe" << endl;
-//    else p->imprime();
-//    cout << "==============" << endl ;
+    p = L1.retiraDoInicio();
+
+    if (p != NULL)
+    {
+        cout << "Retirado do Inicio:" << endl;
+        p->imprime();
+        delete p;
+    } else cout << "Lista vazia" << endl;
+    cout << "==============" << endl ;
+    p = L1.buscaAnterior("Abel");
+    if (p == NULL)
+        cout << "Nao tem antes ou nao existe" << endl;
+    else p->imprime();
+    cout << "==============" << endl ;
 //    p = L1.retira("Cintia", "Getulio");
 //    cout << "Retirado: ";
 //    if (p == NULL)
@@ -50,12 +50,12 @@ int  main()
 //    if (L1.remove("Abel", "Ramiro") == 1)
 //        cout << "Dado removido !" << endl;
 //    else  cout << "Dado nao existe na lista" << endl;
-//
+
 //    p = L1.retiraDoFinal();
 //
 //    if (p != NULL)
 //    {
-//        cout << "Retirado do Final:";
+//        cout << "Retirado do Final:" << endl;
 //        p->imprime();
 //        delete p;
 //    } else cout << "Lista vazia" << endl;
