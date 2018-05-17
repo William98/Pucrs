@@ -1,0 +1,22 @@
+ Address    Code        Basic                     Source
+
+0x00400000  0x3c011001  lui $1,0x00001001     16   	la	$t0,array	# register $t0 contains the address of array
+0x00400004  0x34280000  ori $8,$1,0x00000000       
+0x00400008  0x3c011001  lui $1,0x00001001     17   	la	$t1,size	# get address of size
+0x0040000c  0x3429002c  ori $9,$1,0x0000002c       
+0x00400010  0x340d0004  ori $13,$0,0x00000004 18   	ori	$t5,$zero,4	# $t5 will contain constant 4
+0x00400014  0x3c01ffff  lui $1,0xffffffff     19   	ori	$t6,$zero,-1	# $t6 will contain constant -1
+0x00400018  0x3421ffff  ori $1,$1,0x0000ffff       
+0x0040001c  0x00017025  or $14,$0,$1               
+0x00400020  0x8d290000  lw $9,0x00000000($9)  20   	lw	$t1,0($t1)	# register $t1 contains the size of the array
+0x00400024  0x3c011001  lui $1,0x00001001     21   	la	$t2,const	# get address of constant
+0x00400028  0x342a0030  ori $10,$1,0x00000030      
+0x0040002c  0x8d4a0000  lw $10,0x00000000($10)22   	lw	$t2,0($t2)	# register $t2 contains the constant to add
+0x00400030  0x11200006  beq $9,$0,0x00000006  23   loop:	beq	$t1,$zero,end		# if size is/becomes 0, end of processing
+0x00400034  0x8d0b0000  lw $11,0x00000000($8) 24   	lw	$t3,0($t0)	# get array element
+0x00400038  0x016a5821  addu $11,$11,$10      25   	addu	$t3,$t3,$t2	# add constant
+0x0040003c  0xad0b0000  sw $11,0x00000000($8) 26   	sw	$t3,0($t0)	# update array
+0x00400040  0x010d4021  addu $8,$8,$13        27   	addu	$t0,$t0,$t5	# update array pointer. Remember, 1word=4 memory addresses
+0x00400044  0x012e4821  addu $9,$9,$14        28   	addu	$t1,$t1,$t6	# decrement array size counter
+0x00400048  0x1000fff9  beq $0,$0,0xfffffff9  29   	beq	$zero,$zero,loop# continue execution
+0x0040004c  0x1000ffff  beq $0,$0,0xffffffff  32   end:	beq	$zero,$zero,end	

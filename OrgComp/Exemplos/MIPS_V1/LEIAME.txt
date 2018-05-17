@@ -1,0 +1,39 @@
+========================================================
+Implementação de um processador capaz de executar um subconjunto de instruções da arquitetura MIPS: MIPS-V1
+
+As instruções com suporte de execução neste processador são apenas:
+ADDU, SUBU, AND, OR, XOR, NOR, LW, SW, ORI, LUI e BEQ
+========================================================
+
+1) Esta implementação é do tipo monociclo, ou seja, cada instrução é executada em exatamente um ciclo de relógio. O processador é sensível exclusivamente à borda de subida do clock externo.
+
+2) O único registrador de controle é o PC. Não há registrador de instruções ou de controle de acesso à memória.
+
+3) O Bloco de Controle depende apenas do valor instantâneo da linha "instruction", saída da Memória de Instruções.
+
+4) As memórias externas (Memória de Instruções e Memória de Dados) são assíncronas e respondem de forma imediata a qualquer comando externo. A organização é do tipo Harvard (memórias separadas para instruções e dados). 
+
+5) CUIDADO! A primeira borda de subida depois de desativado o sinal de "reset" provoca a execução da primeira instrução, e assim por diante, cada borda de subida conclui a execução de uma nova instrução.
+
+6) O arquivo de configuração de forma de onda (*.wcfg) é apenas um guia de como organizar os sinais a observar. Carregue a forma de onda e veja os sinais que nela existem. Use uma organização igual ou similar para os sinais.
+
+7) No ISE, usem o Editor de memória para visualizar programas e dados na memória.
+
+8) Com relação ao programa, existe um código fonte  em liguagem de montagem (soma-cte-vec-MIPSV1.asm). A partir deste, produz-se um código objeto do DUMP de memória gerado a partir do MARS. Este código está no arquivo prog.txt. Este é um programa que executa um algoritmo simples, que soma o valor de uma constante a todos os elementos do vetor linear denominado "array".
+
+--
+
+9) Gerar Dump Memory tanto do programa (.text) e dados (.data) no formato Text/Data Segment Window
+	prog_dump.txt
+	data_dump.txt
+
+10) Executar seguinte comando
+	cat prog_dump.txt data_dump.txt > prog.txt
+	
+11) Editar o arquivo Separando por "Text Segment" e "Data Segment"
+	Text Segment
+0x00400000  0x3c011001  lui $1,0x00001001     16   	la	$t0,array	# register $t0 contains the address of array
+	Data Segment
+0x10010000    0x00000012 0x000000ff 0x00000003 0x00000014 0x00000878 0x00000031 0x00000062 0x00000010 
+
+
