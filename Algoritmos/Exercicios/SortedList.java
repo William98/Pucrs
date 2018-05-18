@@ -46,44 +46,52 @@ public class DoublyLinkedList{
   public void addLast(String d) {
       addBetween(d, trailer.getPrev(), trailer);
   }
-  public String removeFirst(){
-    if(isEmpty()) return null;
-    Node aux = header;
-    header = header.getNext();
-    size--;
-    return aux.getElement();
+  /* Metodo para remover primeiro node sem a implementacao do remove */
+  // public String removeFirst(){
+    // if(isEmpty()) return null;
+    // Node aux = header;
+    // header = header.getNext();
+    // size--;
+    // return aux.getElement();
 
-  }
-  public String removeLast(){
-    if(isEmpty()) return null;
-    Node aux = trailer;
-    trailer = trailer.getPrev();
-    size--;
-    return aux.getElement();
-  }
+  // }
+  /* Metodo para remover ultimo node sem a implementacao do remove */
+  // public String removeLast(){
+    // if(isEmpty()) return null;
+    // Node aux = trailer;
+    // trailer = trailer.getPrev();
+    // size--;
+    // return aux.getElement();
+  // }
+  
   public void addBetween(String d, Node predecessor, Node successor) {
       Node newest = new Node(d, predecessor, successor);
       predecessor.setNext(newest);
       successor.setPrev(newest);
       size++;
   }
-// @TODO testar metodo Sort e Ajustar metodos de exclusão para padrão abaixo
+// @TODO Criar metodo Sort e Quick Sort
   public void Sort(){
-    Node aux1, aux2;
   }
   public void QuickSort(){
-
   }
-// public Entry removeFirst() {
-//    if (isEmpty()) return null;
-//    return remove(header.getNext());
-//  }
-// public Entry removeLast() {}
-// public String remove(Node n) {
-//
-//     size--;
-//     return n.getElement();
-// }
+  public String removeFirst() {
+    if (isEmpty()) return null;
+    
+    return remove(header.getNext());
+  }
+  public String removeLast() {
+      if(isEmpty()) return null;
+      return remove(trailer.getPrev());
+  }
+  public String remove(Node n) {
+     Node ant = n.getPrev();
+     Node prox = n.getNext();
+     ant.setNext(prox);
+     prox.setPrev(ant);
+     size--;
+     return n.getElement();
+  }
 }
 
 /* @TODO
