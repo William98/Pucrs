@@ -30,7 +30,9 @@ main:	li	$fp,0x10040000	# inicializa $fp - apontador de heap
 	la	$t5,cabeça	# gera ponteiro para cabeça da lista
 	sw	$v0,0($t5) 	# salva ponteiro para cabeça da lista
 
-	li	$v0,10
+				# inserir código
+
+	li	$v0,10		# carrega cod. syscall para finalizar programa
 	syscall
 
 ##################################################################### 
