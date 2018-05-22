@@ -100,6 +100,16 @@ public class BinarySearchTree {
         return false;
     }
 
+    public BinarySearchTree find(int data){
+        if(isExist(data)){
+         
+
+        }
+
+
+        return null;
+    }
+
     // @TODO implementar com string
     public Node getSucessor(int data){
         if(isExist(data)){
