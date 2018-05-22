@@ -115,4 +115,21 @@ public class BinarySearchTree {
         }
         return null;
     }
+
+    /*
+    * Percurso em ordem simétrica
+    * inorder(t.left)
+    * print(t.element)
+    * inorder(t.right)
+    *
+    * */
+
+    /*
+     * Percurso em pre ordem
+     * print(t.element)
+     * preorder(t.left)
+     * preorder(t.right)
+     *
+     * */
+
 }

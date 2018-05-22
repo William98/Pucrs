@@ -16,9 +16,10 @@ public class Main {
 
         if(ab.isExist(91)){
             System.out.println("Encontrado");
-            //System.out.println("" + ab.getMinimum().getElement());
-            System.out.println("Sucessor: " + ab.getSucessor(20));
-            System.out.println();
+            System.out.println("minimo: " + ab.getMinimum().getElement());
+            System.out.println("maximo: " + ab.getMaximum().getElement());
+            System.out.println("Sucessor: " + ab.getSucessor(21).getElement());
+            System.out.println("Antecessor: " + ab.getPredecessor(21).getElement());
         }
 
     }
