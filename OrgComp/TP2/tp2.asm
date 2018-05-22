@@ -1,10 +1,10 @@
 ##################################################################### 
 # Autor: Lucas Ribeiro
 # 
-#	O objetivo deste programa é criar uma lista encadeada
-#	com conteúdos requisitados, retirados de um
+#	O objetivo deste programa ï¿½ criar uma lista encadeada
+#	com conteï¿½dos requisitados, retirados de um
 #	vetor linear (Vetor) com uma determinada quantidade de 
-#	elementos (Size), que definirá o tamanho inicial da lista.
+#	elementos (Size), que definirï¿½ o tamanho inicial da lista.
 #
 
 .data
@@ -20,45 +20,45 @@ main:
 	lw	$t0, 0($t0)
 	li	$fp, 0x10040000		# Inicializa o topo de heap
 		
-	la	$a0, texto_1		# Carrega o endereço da string que vai ser exibida 
-	li	$a1, 4			# Carrega o syscall para exibição de string
-	jal	f_imprimir		# Requisita ao usuário 
+	la	$a0, texto_1		# Carrega o endereï¿½o da string que vai ser exibida 
+	li	$a1, 4			# Carrega o syscall para exibiï¿½ï¿½o de string
+	jal	f_imprimir		# Requisita ao usuï¿½rio 
 	li	$v0, 5			# Preparo programa para capturar valor
 	syscall				# Chamada do sistema para receber inteiro
-	addiu	$sp, $sp, -12		# Aloca 3 posições na pilha para guardar [head, dado, retorno]
-	sw	$t0, 0($sp)		# Endereço do primeiro elemento da fila
+	addiu	$sp, $sp, -12		# Aloca 3 posiï¿½ï¿½es na pilha para guardar [head, dado, retorno]
+	sw	$t0, 0($sp)		# Endereï¿½o do primeiro elemento da fila
 	sw	$v0, 4($sp)		# Valor capturado a ser inserido
-	sw	$zero, 8($sp)		# Endereço de retorno da funcão
-	jal	ins_ult_el		# Chamada da função insere ultimo elemento
+	sw	$zero, 8($sp)		# Endereï¿½o de retorno da funcï¿½o
+	jal	ins_ult_el		# Chamada da funï¿½ï¿½o insere ultimo elemento
 	# recuperar dados
 	
-	addiu	$sp, $sp, 12		# Desaloca espaço na pilha	
-	la	$a0, texto_1		# Carrega o endereço da string que vai ser exibida 
-	li	$a1, 4			# Carrega o syscall para exibição de string
-	jal	f_imprimir		# Requisita ao usuário 
+	addiu	$sp, $sp, 12		# Desaloca espaï¿½o na pilha	
+	la	$a0, texto_1		# Carrega o endereï¿½o da string que vai ser exibida 
+	li	$a1, 4			# Carrega o syscall para exibiï¿½ï¿½o de string
+	jal	f_imprimir		# Requisita ao usuï¿½rio 
 	li	$v0, 5			# Preparo programa para capturar valor
 	syscall				# Chamada do sistema para receber inteiro
-	addiu	$sp, $sp, -12		# Aloca 3 posições na pilha para guardar [head, dado, retorno]
-	sw	$t0, 0($sp)		# Endereço do primeiro elemento da fila
+	addiu	$sp, $sp, -12		# Aloca 3 posiï¿½ï¿½es na pilha para guardar [head, dado, retorno]
+	sw	$t0, 0($sp)		# Endereï¿½o do primeiro elemento da fila
 	sw	$v0, 4($sp)		# Valor capturado a ser inserido
-	sw	$zero, 8($sp)		# Endereço de retorno da função
-	jal	ins_ult_el		# Chamada da função insere ultimo elemento
+	sw	$zero, 8($sp)		# Endereï¿½o de retorno da funï¿½ï¿½o
+	jal	ins_ult_el		# Chamada da funï¿½ï¿½o insere ultimo elemento
 	# recupera dados
 	
-	addiu	$sp, $sp, 12		# Desaloca espaço na pilha	
+	addiu	$sp, $sp, 12		# Desaloca espaï¿½o na pilha	
 
-	la	$a0, texto_2		# Carrega o endereço da string que vai ser exibida 
-	li	$a1, 4			# Carrega o syscall para exibição de string
-	jal	f_imprimir		# Requisita ao usuário 
-	addiu	$sp, $sp, -12		# Aloca 3 posições na pilha para guardar [head, soma, retorno]
-	sw	$t0, 0($sp)		# Endereço do primeiro elemento da fila
-	sw	$zero, 8($sp)		# Endereço de retorno da função
-	jal	soma_val		# Chamada da função soma valores
-	lw	$a0, 4($sp)		# Carrega o somatorio para exibição
-	li	$a1, 1			# Carrega syscall para exibição de inteiro
-	jal	f_imprimir		# Imprimi o somatório
+	la	$a0, texto_2		# Carrega o endereï¿½o da string que vai ser exibida 
+	li	$a1, 4			# Carrega o syscall para exibiï¿½ï¿½o de string
+	jal	f_imprimir		# Requisita ao usuï¿½rio 
+	addiu	$sp, $sp, -12		# Aloca 3 posiï¿½ï¿½es na pilha para guardar [head, soma, retorno]
+	sw	$t0, 0($sp)		# Endereï¿½o do primeiro elemento da fila
+	sw	$zero, 8($sp)		# Endereï¿½o de retorno da funï¿½ï¿½o
+	jal	soma_val		# Chamada da funï¿½ï¿½o soma valores
+	lw	$a0, 4($sp)		# Carrega o somatorio para exibiï¿½ï¿½o
+	li	$a1, 1			# Carrega syscall para exibiï¿½ï¿½o de inteiro
+	jal	f_imprimir		# Imprimi o somatï¿½rio
 	
-	addiu	$sp, $sp, 12		# Desaloca espaço na pilha       
+	addiu	$sp, $sp, 12		# Desaloca espaï¿½o na pilha       
 exit:
 	li	$v0, 10			# Finaliza o programa
 	syscall
@@ -73,43 +73,44 @@ f_imprimir:
 ##########################################################################
 # Recebe         
 ins_ult_el:				# funcao que adiciona um elemento ao final da lista
-	# Código 
+	# Cï¿½digo 
 	lw	$s0, 8($sp)		# Obtenho o valor do RA
-	blez	$s1, cap_ra_ins		# Caso seja primeira chamada da função ele salta para capturar o RA
+	blez	$s1, cap_ra_ins		# Caso seja primeira chamada da funï¿½ï¿½o ele salta para capturar o RA
 main_ins:
-	lw	$s1, 0($sp)		# Capturo o endereço do Head da lista
-	blez	$s1, prim		# Verifica se existe um valor na primeira posição
+	lw	$s1, 0($sp)		# Capturo o endereï¿½o do Head da lista
+	blez	$s1, prim		# Verifica se existe um valor na primeira posiï¿½ï¿½o
 	
 
 cap_ra_ins:
 	sw	$ra, 8($sp)		# Capturo o $ra
-	j	main_ins		# Retorno para a função
+	j	main_ins		# Retorno para a funï¿½ï¿½o
 
 prim:
-	# Código
-	move	$t0, $fp		# Armazena o endereço no HEAD
+	# Cï¿½digo
+	move	$t0, $fp		# Armazena o endereï¿½o no HEAD
 	lw	$s0, 4($sp)		# Obtem o elemento a ser inserido
-	sw	$s0, 0($t0)		# Salvo o elemento na primeira posição
+	sw	$s0, 0($t0)		# Salvo o elemento na primeira posiï¿½ï¿½o
+	
 	# Adicionar mais 8 para criar referencia para o proximo
-	j	end_ins			# Após inserir finaliza a função
+	j	end_ins			# Apï¿½s inserir finaliza a funï¿½ï¿½o
 
 end_ins:
-	lw	$ra, 8($sp)		# Carrega o endereço da proxima instrução depois da função
+	lw	$ra, 8($sp)		# Carrega o endereï¿½o da proxima instruï¿½ï¿½o depois da funï¿½ï¿½o
 	jr	$ra			# Retorna para o programa principal
 
 ##########################################################################
 # Recebe         
 soma_val:				# funcao que realiza o somatorio de elemento da lista
-        # Código       
+        # Cï¿½digo       
         lw	$s0, 8($sp)		# Obtenho o valor do RA
-        blez	$s0, cap_ra_soma	# Caso seja primeira chamada da função ele salta para capturar o RA
+        blez	$s0, cap_ra_soma	# Caso seja primeira chamada da funï¿½ï¿½o ele salta para capturar o RA
 main_soma:
-	# Código
+	# Cï¿½digo
 cap_ra_soma:
 	sw	$ra, 8($sp)		# Capturo o $ra
-	j	main_soma		# Retorno para a função
+	j	main_soma		# Retorno para a funï¿½ï¿½o
 
 end_soma:
 	#sw	$reg_soma, 4($sp)	# Salva o somatorio na pilha
-	lw	$ra, 8($sp)		# Carrega o endereço da proxima instrução depois da função
+	lw	$ra, 8($sp)		# Carrega o endereï¿½o da proxima instruï¿½ï¿½o depois da funï¿½ï¿½o
 	jr	$ra			# Retorna para o programa principal
