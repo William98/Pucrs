@@ -1,9 +1,4 @@
 public class BinarySearchTree {
-    private class Node{
-        private int data;
-        public Node(int data){ this.data = data; }
-        public int getElement(){ return this.data; }
-    }
 
     private Node root;
     private BinarySearchTree right;
@@ -76,16 +71,48 @@ public class BinarySearchTree {
 
 
     // @TODO implementar insercao ordenada atraves do metodo int compareToIgnoreCase(String str)
-    public void insert(Node n){
-
+    public void insert(int data){
+        if(this.root == null)
+            this.root = new Node(data);
+        else{
+            if(data > root.getElement()){
+                if(this.right == null){
+                    this.right = new BinarySearchTree();
+                }
+                this.right.insert(data);
+            }else if(data < root.getElement()){
+                if(this.left == null){
+                    this.left = new BinarySearchTree();
+                }
+                this.left.insert(data);
+            }
+        }
     }
 
-    //
-    public Boolean exist(int data){
+    // @TODO implementar verificação de strings atraves do metodo int compareToIgnoreCase(String str)
+    public Boolean isExist(int data){
         if(this.root.getElement() == data)
             return true;
-
+        if(this.root.getElement() > data)
+            return left.isExist(data);
+        if(this.root.getElement() < data)
+            return right.isExist(data);
         return false;
     }
 
+    // @TODO implementar com string
+    public Node getSucessor(int data){
+        if(isExist(data)){
+            return this.right.getMinimum();
+        }
+        return null;
+    }
+
+    // @TODO implementar com string
+    public Node getPredecessor(int data){
+        if(isExist(data)){
+            return this.left.getMaximum();
+        }
+        return null;
+    }
 }
