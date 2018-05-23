@@ -1,3 +1,9 @@
+/*
+ * Exercicios de Árvore de Pesquisa Binária
+ * @author: Arthur D'Arisbo e Lucas Ribeiro
+ *
+ * */
+
 public class Main {
 
     public static void main(String[] args) {
@@ -23,6 +29,6 @@ public class Main {
         t.preOrder();
         System.out.println();
         t.proOrder();
-    
+
     }
 }
