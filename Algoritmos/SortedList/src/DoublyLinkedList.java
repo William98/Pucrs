@@ -35,37 +35,23 @@ public class DoublyLinkedList{
     }
     public int size() { return size; }
     public boolean isEmpty() { return size == 0; }
+
     public String first() {
         if (isEmpty()) return null;
         return header.getNext().getElement();
     }
+
     public String last() {
         if (isEmpty()) return null;
         return trailer.getPrev().getElement();
     }
+
     public void addFirst(String d) {
         addBetween(d, header, header.getNext());
     }
     public void addLast(String d) {
         addBetween(d, trailer.getPrev(), trailer);
     }
-    /* Metodo para remover primeiro node sem a implementacao do remove */
-    // public String removeFirst(){
-    // if(isEmpty()) return null;
-    // Node aux = header;
-    // header = header.getNext();
-    // size--;
-    // return aux.getElement();
-
-    // }
-    /* Metodo para remover ultimo node sem a implementacao do remove */
-    // public String removeLast(){
-    // if(isEmpty()) return null;
-    // Node aux = trailer;
-    // trailer = trailer.getPrev();
-    // size--;
-    // return aux.getElement();
-    // }
 
     public void addBetween(String d, Node predecessor, Node successor) {
         Node newest = new Node(d, predecessor, successor);
@@ -73,11 +59,7 @@ public class DoublyLinkedList{
         successor.setPrev(newest);
         size++;
     }
-    // @TODO Criar metodo Sort e Quick Sort
-    public void Sort(){
-    }
-    public void QuickSort(){
-    }
+
     public String removeFirst() {
         if (isEmpty()) return null;
 
@@ -95,5 +77,44 @@ public class DoublyLinkedList{
         size--;
         return n.getElement();
     }
+
+    public void printList(){
+        if(!isEmpty()){
+            int cont = 1;
+            Node aux = header;
+            while(aux != trailer){
+                System.out.println(cont + " - " + "String: " + aux.getElement());
+                System.out.println();
+                aux = aux.getNext();
+                cont++;
+            }
+        }else{
+            System.out.println("Lista Vazia");
+        }
+
+    }
+
+    // @TODO Metodo não esta funcionando
+    public void Sort(){
+        if(size() > 0){
+
+            Node aux1 = header;
+            for (int i = 0; i < size; i++){
+                int tam = size;
+                for(int j = 0; j < tam - i; j++){
+                    if(aux1.getElement().compareToIgnoreCase(aux1.getNext().getElement()) > 0) {
+                        Node aux2 = aux1;
+                        aux1 = aux1.getNext();
+                        aux2.setNext(aux2);
+                    }
+                }
+            }
+        }else{
+            System.out.println("Não foi possível ordenar.");
+            System.out.println("LISTA VAZIA");
+        }
+    }
+
+
 }
 
