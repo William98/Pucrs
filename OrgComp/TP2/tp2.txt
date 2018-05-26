@@ -1,7 +1,0 @@
- (1) Qual o número do registrador $sp no conjunto de registradores do MIPS e qual o seu valor inicial (atribuído pelo simulador MARS)? 0x7fffeffc
- (2) Qual é o primeiro valor escrito na pilha, e qual o significado do mesmo?
- (3) Mostre o conteúdo da pilha ao entrar na terceira chamada aninhada de alguma recursão (use a opção FileDump Memory do simulador MARS).
- (4) Qual o conteúdo do registrador $sp neste momento?
- (5) Isto implica quanto espaço alocado na pilha?
- (6) Observar o retorno do procedimento recursivo. O valor do registrador $sp volta ao valor original? (Se isto não ocorrer seu programa está incorreto, pois sua execução deixa lixo na pilha).
- (7) Em qual linha de código este valor é re-estabelecido?

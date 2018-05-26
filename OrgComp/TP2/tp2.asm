@@ -1,139 +1,220 @@
 ##################################################################### 
 # Autor: Lucas Ribeiro
-# 
-#	O objetivo deste programa � criar uma lista encadeada
-#	com conte�dos requisitados, retirados de um
-#	vetor linear (Vetor) com uma determinada quantidade de 
-#	elementos (Size), que definir� o tamanho inicial da lista.
-#
 
 .data
-head:		.word	0
-texto_1:	.asciiz "Informe o numero que deseja inserir na lista?"
-texto_2:	.asciiz "Somatorio da lista:"
-        
+	TEXTO:	.asciiz "\nSomatorio da lista: "
 .text   
-.globl	main            
+.globl	main
 
 main:
-	la	$t0, head
-	li	$fp, 0x10040000		# Inicializa o topo de heap
-		
-	la	$a0, texto_1		# Carrega o endere�o da string que vai ser exibida 
-	li	$a1, 4			# Carrega o syscall para exibi��o de string
-	jal	f_imprimir		# Requisita ao usu�rio 
-	li	$v0, 5			# Preparo programa para capturar valor
-	syscall				# Chamada do sistema para receber inteiro
-	addiu	$sp, $sp, -12		# Aloca 3 posi��es na pilha para guardar [head, dado, retorno]
-	sw	$t0, 0($sp)		# Endere�o do primeiro elemento da fila
-	sw	$v0, 4($sp)		# Valor capturado a ser inserido
-	sw	$zero, 8($sp)		# Endere�o de retorno da func�o
-	jal	ins_ult_el		# Chamada da fun��o insere ultimo elemento
-	# recuperar dados
+	li	$fp, 0x10040000		# Inicializa o topo do heap 
 	
-	addiu	$sp, $sp, 12		# Desaloca espa�o na pilha	
-	la	$a0, texto_1		# Carrega o endere�o da string que vai ser exibida 
-	li	$a1, 4			# Carrega o syscall para exibi��o de string
-	jal	f_imprimir		# Requisita ao usu�rio 
-	li	$v0, 5			# Preparo programa para capturar valor
-	syscall				# Chamada do sistema para receber inteiro
-	addiu	$sp, $sp, -12		# Aloca 3 posi��es na pilha para guardar [head, dado, retorno]
-	sw	$t0, 0($sp)		# Endere�o do primeiro elemento da fila
-	sw	$v0, 4($sp)		# Valor capturado a ser inserido
-	sw	$zero, 8($sp)		# Endere�o de retorno da fun��o
-	jal	ins_ult_el		# Chamada da fun��o insere ultimo elemento
-	# recupera dados
+	# Adiciona 10 na Lista	
+	addiu	$sp, $sp, -12		# Aloca espaco para 3 dados na pilha
+	li	$t0, 10			# Carrega 10
+	sw	$zero, 0($sp)		# Endereco de retorno no topo da pilha
+	sw	$fp, 4($sp)		# Endereco do ponteiro do primeiro elemento
+	sw	$t0, 8($sp)		# Inteiro a ser adicionado na lista
+	jal	ins_ult_el		# Chamada da funcao insere ultimo elemento
+	addiu	$sp, $sp, 12		# Desaloca espaco na pilha
 	
-	addiu	$sp, $sp, 12		# Desaloca espa�o na pilha
-	la	$a0, texto_1		# Carrega o endere�o da string que vai ser exibida 
-	li	$a1, 4			# Carrega o syscall para exibi��o de string
-	jal	f_imprimir		# Requisita ao usu�rio 
-	li	$v0, 5			# Preparo programa para capturar valor
-	syscall				# Chamada do sistema para receber inteiro
-	addiu	$sp, $sp, -12		# Aloca 3 posi��es na pilha para guardar [head, dado, retorno]
-	sw	$t0, 0($sp)		# Endere�o do primeiro elemento da fila
-	sw	$v0, 4($sp)		# Valor capturado a ser inserido
-	sw	$zero, 8($sp)		# Endere�o de retorno da func�o
-	jal	ins_ult_el		# Chamada da fun��o insere ultimo elemento
-	# recuperar dados
+	# Somatorio de todos elementos da Lista = 10
+	addiu	$sp, $sp, -12		# Aloca espaco para 3 dados na pilha
+	sw	$zero, 0($sp)		# Endereco de retorno no topo da pilha
+	sw	$fp, 4($sp)		# Endereco do ponteiro do primeiro elemento
+	sw	$zero, 8($sp)		# Zera para receber o retorno
+	jal	soma_val		# Chamada da funcao insere ultimo elemento
+	lw	$t1, 8($sp)		# Recupera resultado do somatorio		
+	addiu	$sp, $sp, 12		# Desaloca espaco na pilha	
 	
-	addiu	$sp, $sp, 12		# Desaloca espa�o na pilha
-	la	$a0, texto_2		# Carrega o endere�o da string que vai ser exibida 
-	li	$a1, 4			# Carrega o syscall para exibi��o de string
-	jal	f_imprimir		# Requisita ao usu�rio 
-	addiu	$sp, $sp, -12		# Aloca 3 posi��es na pilha para guardar [head, soma, retorno]
-	sw	$t0, 0($sp)		# Endere�o do primeiro elemento da fila
-	sw	$zero, 8($sp)		# Endere�o de retorno da fun��o
-	jal	soma_val		# Chamada da fun��o soma valores
-	lw	$a0, 4($sp)		# Carrega o somatorio para exibi��o
-	li	$a1, 1			# Carrega syscall para exibi��o de inteiro
-	jal	f_imprimir		# Imprimi o somat�rio
+	# Imprimi somatorio = 10
+	la	$a0, TEXTO		# Carrega o endereco da string que vai ser exibida 
+	li	$a1, 4			# Carrega o syscall para exibicao de string
+	jal	imprimir		# Requisita ao usuario 
+	move	$a0, $t1		# Carrega o somatorio para exibicao
+	li	$a1, 1			# Carrega syscall para exibicao de inteiro
+	jal	imprimir		# Imprimi o somatorio
 	
-	addiu	$sp, $sp, 12		# Desaloca espa�o na pilha       
+	# Adiciona 20 na Lista
+	addiu	$sp, $sp, -12		# Aloca espaco para 3 dados na pilha
+	li	$t0, 20			# Carrega 20
+	sw	$zero, 0($sp)		# Endereco de retorno no topo da pilha
+	sw	$fp, 4($sp)		# Endereco do ponteiro do primeiro elemento
+	sw	$t0, 8($sp)		# Inteiro a ser adicionado na lista
+	jal	ins_ult_el		# Chamada da funcao insere ultimo elemento
+	addiu	$sp, $sp, 12		# Desaloca espaco na pilha
+	
+	# Adiciona 30 na Lista
+	addiu	$sp, $sp, -12		# Aloca espaco para 3 dados na pilha
+	li	$t0, 30			# Carrega 30
+	sw	$zero, 0($sp)		# Endereco de retorno no topo da pilha
+	sw	$fp, 4($sp)		# Endereco do ponteiro do primeiro elemento
+	sw	$t0, 8($sp)		# Inteiro a ser adicionado na lista
+	jal	ins_ult_el		# Chamada da funcao insere ultimo elemento
+	addiu	$sp, $sp, 12		# Desaloca espaco na pilha
+	
+	# Somatorio de todos elementos da Lista = 10 + 20 + 30
+	addiu	$sp, $sp, -12		# Aloca espaco para 3 dados na pilha
+	sw	$zero, 0($sp)		# Endereco de retorno no topo da pilha
+	sw	$fp, 4($sp)		# Endereco do ponteiro do primeiro elemento
+	sw	$zero, 8($sp)		# Zera para receber o retorno
+	jal	soma_val		# Chamada da funcao insere ultimo elemento
+	lw	$t1, 8($sp)		# Recupera resultado do somatorio		
+	addiu	$sp, $sp, 12		# Desaloca espaco na pilha	
+	
+	# Imprimi somatorio = 60
+	la	$a0, TEXTO		# Carrega o endereco da string que vai ser exibida 
+	li	$a1, 4			# Carrega o syscall para exibicao de string
+	jal	imprimir		# Requisita ao usuario 
+	move	$a0, $t1		# Carrega o somatorio para exibicao
+	li	$a1, 1			# Carrega syscall para exibicao de inteiro
+	jal	imprimir		# Imprimi o somatorio
+	
+	# Adiciona 40 na Lista	
+	addiu	$sp, $sp, -12		# Aloca espaco para 3 dados na pilha
+	li	$t0, 40			# Carrega 40
+	sw	$zero, 0($sp)		# Endereco de retorno no topo da pilha
+	sw	$fp, 4($sp)		# Endereco do ponteiro do primeiro elemento
+	sw	$t0, 8($sp)		# Inteiro a ser adicionado na lista
+	jal	ins_ult_el		# Chamada da funcao insere ultimo elemento
+	addiu	$sp, $sp, 12		# Desaloca espaco na pilha
+	
+	# Adiciona 50 na Lista
+	addiu	$sp, $sp, -12		# Aloca espaco para 3 dados na pilha
+	li	$t0, 50			# Carrega 50
+	sw	$zero, 0($sp)		# Endereco de retorno no topo da pilha
+	sw	$fp, 4($sp)		# Endereco do ponteiro do primeiro elemento
+	sw	$t0, 8($sp)		# Inteiro a ser adicionado na lista
+	jal	ins_ult_el		# Chamada da funcao insere ultimo elemento
+	addiu	$sp, $sp, 12		# Desaloca espaco na pilha
+	
+	# Somatorio de todos elementos da Lista = 10 + 20 + 30 + 40 + 50
+	addiu	$sp, $sp, -12		# Aloca espaco para 3 dados na pilha
+	sw	$zero, 0($sp)		# Endereco de retorno no topo da pilha
+	sw	$fp, 4($sp)		# Endereco do ponteiro do primeiro elemento
+	sw	$zero, 8($sp)		# Zera para receber o retorno
+	jal	soma_val		# Chamada da funcao insere ultimo elemento
+	lw	$t1, 8($sp)		# Recupera resultado do somatorio		
+	addiu	$sp, $sp, 12		# Desaloca espaco na pilha
+	
+	# Imprimi somatorio = 150
+	la	$a0, TEXTO		# Carrega o endereco da string que vai ser exibida 
+	li	$a1, 4			# Carrega o syscall para exibicao de string
+	jal	imprimir		# Requisita ao usuario 
+	move	$a0, $t1		# Carrega o somatorio para exibicao
+	li	$a1, 1			# Carrega syscall para exibicao de inteiro
+	jal	imprimir		# Imprimi o somatorio
+
+	# Adiciona 50 na Lista	
+	addiu	$sp, $sp, -12		# Aloca espaco para 3 dados na pilha
+	li	$t0, 50			# Carrega 40
+	sw	$zero, 0($sp)		# Endereco de retorno no topo da pilha
+	sw	$fp, 4($sp)		# Endereco do ponteiro do primeiro elemento
+	sw	$t0, 8($sp)		# Inteiro a ser adicionado na lista
+	jal	ins_ult_el		# Chamada da funcao insere ultimo elemento
+	addiu	$sp, $sp, 12		# Desaloca espaco na pilha
+	
+	# Adiciona 50 na Lista
+	addiu	$sp, $sp, -12		# Aloca espaco para 3 dados na pilha
+	li	$t0, 50			# Carrega 50
+	sw	$zero, 0($sp)		# Endereco de retorno no topo da pilha
+	sw	$fp, 4($sp)		# Endereco do ponteiro do primeiro elemento
+	sw	$t0, 8($sp)		# Inteiro a ser adicionado na lista
+	jal	ins_ult_el		# Chamada da funcao insere ultimo elemento
+	addiu	$sp, $sp, 12		# Desaloca espaco na pilha
+	
+	# Somatorio de todos elementos da Lista = 10 + 20 + 30 + 40 + 50 + 50 + 50
+	addiu	$sp, $sp, -12		# Aloca espaco para 3 dados na pilha
+	sw	$zero, 0($sp)		# Endereco de retorno no topo da pilha
+	sw	$fp, 4($sp)		# Endereco do ponteiro do primeiro elemento
+	sw	$zero, 8($sp)		# Zera para receber o retorno
+	jal	soma_val		# Chamada da funcao insere ultimo elemento
+	lw	$t1, 8($sp)		# Recupera resultado do somatorio		
+	addiu	$sp, $sp, 12		# Desaloca espaco na pilha
+	
+	# Imprimi somatorio = 250
+	la	$a0, TEXTO		# Carrega o endereco da string que vai ser exibida 
+	li	$a1, 4			# Carrega o syscall para exibicao de string
+	jal	imprimir		# Requisita ao usuario 
+	move	$a0, $t1		# Carrega o somatorio para exibicao
+	li	$a1, 1			# Carrega syscall para exibicao de inteiro
+	jal	imprimir		# Imprimi o somatorio
+	
+# Finaliza o programa
 exit:
-	li	$v0, 10			# Finaliza o programa
+	li	$v0, 10
 	syscall
-                    
-#########################################################################
-# Recebe a mensagem em $a0 e o tipo de Syscall em $a1
-f_imprimir:
+
+##################################################################### 
+# Funcao imprimir	$a0 - Mensagem | $a1 - Syscall 
+##################################################################### 
+imprimir:
 	move	$v0, $a1		# Carrega o Syscall passado pelo $a1
 	syscall
-	jr	$ra	
-       
-##########################################################################
-# Recebe         
-ins_ult_el:				# funcao que adiciona um elemento ao final da lista
-	# Codigo 
-	lw	$s0, 8($sp)		# Obtenho o valor do RA
-	blez	$s0, cap_ra_ins		# Caso seja primeira chamada da fun��o ele salta para capturar o RA
-main_ins:
-	lw	$s1, 0($sp)		# Capturo o endere�o do Head da lista
-	lw	$s2, 4($sp)		# Capturo o valor a ser inserido
-	beq	$s1, $zero, prim_el	# Verifica se existe um valor na primeira posi��o
-loop:	
-	move	$s3, $s1		# Carrego endereço do apontador
-	lw	$s4, 0($s3)		# Carrego o dado do endereço
-	beq	$s4, $zero, ins_el	# Se o valor na posicao for zero insere elemento
-	addiu	$s3, $s3, 4		# Incrementa 4 o endereço do apontador
-	sw	$s3, 0($sp)		# Carrego na pilha o endereço do proximo item 
-	jal	ins_ult_el		# Salto para o inicio da fila
-ins_el:
-	addiu	$s3, $s3, 4		# Incrementa a posicao do apontador 
-	addiu	$s4, $s3, 4		# Incrementa a posicao do dado
-	sw	$s3, 0($s4)		# Cria o apontador para o proximo
-	sw	$s2, 0($s3)		# Armazeno o valor
-	
-	j	end_ins
-prim_el:
-	move	$t0, $fp		# Armazena o endere�o no HEAD
-	sw	$s2, 0($t0)		# Salvo o elemento na primeira posi��o
-	addiu	$s3, $fp, 4		# Obtem o endereço do apontador	
-	addiu	$s4, $fp, 8		# Obtem o endereço do dado
-	sw	$s4, 0($s3)		# Salva o endereço do dado no apontador
-	j	end_ins			# Ap�s inserir finaliza a fun��o
+	jr	$ra
 
-cap_ra_ins:
-	sw	$ra, 8($sp)		# Capturo o $ra
-	j	main_ins		# Retorno para a fun��o
+##################################################################### 
+# Funcao ins_ult_el	0($sp) - $ra | 4($sp) - apontador do elemento | 8($sp) - dado 
+##################################################################### 
+ins_ult_el:
+	lw	$s0, 0($sp)		# Carrega o endereco do RA
+	beq	$s0, $zero, cap_ra_ins	# Caso RA nao tenha sido capturado salta para capturar
+
+# Verifica se o apontador do elemento ja possui dado associado ao endereco
+main_ins:
+	lw	$s1, 4($sp)		# Carrega o endereco do apontador da lista
+	lw	$s2, 0($s1)		# Carrega o dado na posicao
+	beq	$s2, $zero, ins_el	# Verifica se exite dado na posicao : salta para inserir 
+	addiu	$s1, $s1, 4		# Incrementa o apontador para o proximo item
+	sw	$s1, 4($sp)		# Atualiza o endereco do proximo elemento na pilha
 	
+	jal	ins_ult_el		# Chama a funcao novamente
+
+# Insere o elemento e gera endereco para o proximo
+ins_el:
+	lw	$s4, 8($sp)		# Carrega o dado a ser inserido
+	sw	$s4, 0($s1)		# Adiciona o dado na lista
+	addiu	$s1, $s1, 4		# Endereco para o proximo elemento
+	addiu	$s2, $s1, 4		# Gera o endereco do proximo elemento
+	sw	$s2, 0($s1)		# Salva o endereco para proximo elemento
+	j	end_ins			# Salta finalizar a funcao
+	
+# Captura o RA	
+cap_ra_ins:
+	sw	$ra, 0($sp)		# Salva o RA para retornar
+	j	main_ins		# Retorna para a funcao
+
+# Finaliza a chamada da funcao
 end_ins:
-	lw	$ra, 8($sp)		# Carrega o endere�o da proxima instru��o depois da fun��o
+	lw	$ra, 0($sp)		# Recupera o endereco da proxima instrucao
 	jr	$ra			# Retorna para o programa principal
 
-##########################################################################
-# Recebe         
-soma_val:				# funcao que realiza o somatorio de elemento da lista
-        # C�digo       
-        lw	$s0, 8($sp)		# Obtenho o valor do RA
-        blez	$s0, cap_ra_soma	# Caso seja primeira chamada da fun��o ele salta para capturar o RA
-main_soma:
-	# C�digo
-cap_ra_soma:
-	sw	$ra, 8($sp)		# Capturo o $ra
-	j	main_soma		# Retorno para a fun��o
 
+##################################################################### 
+# Funcao soma_val	0($sp) - $ra | 4($sp) - apontador do elemento | 8($sp) - retorno 
+##################################################################### 
+soma_val:
+	lw	$s0, 0($sp)		# Carrega o endereco do RA
+	beq	$s0, $zero, cap_ra_soma	# Caso RA nao tenha sido capturado salta para capturar
+
+main_soma:
+	lw	$s1, 4($sp)		# Carrega o endereco do apontador da lista
+	lw	$s2, 0($s1)		# Carrega o dado na posicao
+	lw	$s3, 8($sp)		# Carrega o endereco do somatorio
+	addu	$s3, $s3, $s2		# Soma o dado carregado com o somatorio
+	beq	$s2, $zero, end_soma	# Verifica se exite dado na posicao : salta para finalizar
+	sw	$s3, 8($sp)		# Armazena o somatorio na pilha
+	addiu	$s1, $s1, 8		# Incrementa o apontador para o proximo item
+	sw	$s1, 4($sp)		# Atualiza o endereco do proximo elemento na pilha
+	
+	jal	soma_val		# Chama a funcao novamente
+
+# Captura o RA	
+cap_ra_soma:
+	sw	$ra, 0($sp)		# Salva o endereco da proxima instrucao
+	j	main_soma		# Retorna para a funcao
+
+# Finaliza a chamada da funcao
 end_soma:
-	#sw	$reg_soma, 4($sp)	# Salva o somatorio na pilha
-	lw	$ra, 8($sp)		# Carrega o endere�o da proxima instru��o depois da fun��o
+	lw	$ra, 0($sp)		# Recupera o endereco da proxima instrucao
 	jr	$ra			# Retorna para o programa principal
