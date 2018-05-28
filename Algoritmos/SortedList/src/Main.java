@@ -14,8 +14,16 @@ public class Main {
         dll.addFirst("Legolas");
         dll.addLast("Gimbli");
 
+        System.out.println("-- LISTA DUPLAMENTE ENCADEADA --");
+        System.out.println("--------------------------------");
         dll.printList();
-        System.out.println("--------------");
+
+        /* Ordenacao da Lista Duplamente Encadeada via Bubble Sort */
+        dll.Sort();
+        System.out.println("--       LISTA ORDENADA       --");
+        System.out.println("--------------------------------");
+        dll.printList();
+
 
         sl.addElement("Neo");
         sl.addElement("Trinity");
@@ -30,8 +38,6 @@ public class Main {
 
         System.out.println("--------------");
 
-//        dll.Sort();
-//        dll.printList();
 
     }
 }

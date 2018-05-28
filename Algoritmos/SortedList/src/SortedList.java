@@ -76,14 +76,14 @@ class SortedList {
 
     public void addElement(String d) {
         if (isEmpty()) {
-            header = new Node(d, trailer, trailer);
-        } else if (d.compareToIgnoreCase(header.getElement()) <= 0) {
             addFirst(d);
+        } else if (d.compareToIgnoreCase(header.getElement()) <= 0) {
+            addBetween(d, trailer, header.getNext());
         } else if (d.compareToIgnoreCase(trailer.getElement()) > 0) {
-            addLast(d);
+            addBetween(d, trailer.getPrev(), header);
         } else {
             Node aux = header.getNext();
-            while (header.getElement().compareToIgnoreCase(d) < 0)
+            while (aux.getElement().compareToIgnoreCase(d) < 0)
                 aux = aux.getNext();
             addBetween(d, aux, aux.getNext());
         }
@@ -96,20 +96,19 @@ class SortedList {
         size++;
     }
 
-    public void printList() {
-        if (isEmpty()) {
+    public void printList(){
+        if(!isEmpty()){
             int cont = 1;
-            Node aux = header;
-            while (aux != trailer) {
+            Node aux = header.getNext();
+            while(aux != trailer){
                 System.out.println(cont + " - " + "String: " + aux.getElement());
                 System.out.println();
                 aux = aux.getNext();
                 cont++;
             }
-        } else {
+        }else{
             System.out.println("Lista Vazia");
         }
-
     }
 
 
