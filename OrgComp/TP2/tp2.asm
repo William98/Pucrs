@@ -1,11 +1,17 @@
 ##################################################################### 
-# Autor: Lucas Ribeiro
-
+# Autor: Lucas Ribeiro e Arthur D'Arisbo
+# 
+#	O objetivo deste programa e criar lista encadeada
+#	na chamada da funcao ins_ult_el e tambem mostra a
+#	soma dos elementos da lista atraves das funcoes soma_val
+#	e imprimir
+#
 .data
 	TEXTO:	.asciiz "\nSomatorio da lista: "
 .text   
 .globl	main
 
+# Programa principal
 main:
 	li	$fp, 0x10040000		# Inicializa o topo do heap 
 	
@@ -196,7 +202,8 @@ end_ins:
 soma_val:
 	lw	$s0, 0($sp)		# Carrega o endereco do RA
 	beq	$s0, $zero, cap_ra_soma	# Caso RA nao tenha sido capturado salta para capturar
-
+	
+# Verifica se existe elemento e adiciona ao retorno
 main_soma:
 	lw	$s1, 4($sp)		# Carrega o endereco do apontador da lista
 	lw	$s2, 0($s1)		# Carrega o dado na posicao
