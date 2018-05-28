@@ -17,11 +17,12 @@ public class DoublyLinkedList{
             prev = p;
             next = n;
         }
-        public String getElement() { return data; }
         public Node getPrev() { return prev; }
         public Node getNext() { return next; }
+        public String getElement() { return data; }
         public void setPrev(Node p) { prev = p; }
         public void setNext(Node n) { next = n; }
+        public void setElement(String d) { data = d; }
     }
 
     private Node header;
@@ -81,7 +82,7 @@ public class DoublyLinkedList{
     public void printList(){
         if(!isEmpty()){
             int cont = 1;
-            Node aux = header;
+            Node aux = header.getNext();
             while(aux != trailer){
                 System.out.println(cont + " - " + "String: " + aux.getElement());
                 System.out.println();
@@ -97,15 +98,14 @@ public class DoublyLinkedList{
     // @TODO Metodo não esta funcionando
     public void Sort(){
         if(size() > 0){
-
-            Node aux1 = header;
-            for (int i = 0; i < size; i++){
-                int tam = size;
-                for(int j = 0; j < tam - i; j++){
-                    if(aux1.getElement().compareToIgnoreCase(aux1.getNext().getElement()) > 0) {
-                        Node aux2 = aux1;
-                        aux1 = aux1.getNext();
-                        aux2.setNext(aux2);
+            Node aux1, aux2;
+            String aux;
+            for (aux1 = header.getNext(); aux1.getNext() != null; aux1 = aux1.getNext()){
+                for (aux2 = aux1.getNext(); aux2.getNext() != null; aux2 = aux2.getNext()){
+                    if((aux1.getElement().compareToIgnoreCase(aux2.getElement()) > 0)) {
+                        aux = aux1.getElement();
+                        aux1.setElement(aux2.getElement());
+                        aux2.setElement(aux);
                     }
                 }
             }
@@ -114,7 +114,5 @@ public class DoublyLinkedList{
             System.out.println("LISTA VAZIA");
         }
     }
-
-
 }
 
