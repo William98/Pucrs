@@ -67,27 +67,45 @@ class SortedList {
     }
 
     public void addFirst(String d) {
-        addBetween(d, trailer, header.getNext());
+        addBetween(d, header, header.getNext());
     }
 
     public void addLast(String d) {
-        addBetween(d, trailer.getPrev(), header);
+        addBetween(d, trailer.getPrev(), trailer);
     }
 
-    public void addElement(String d) {
-        if (isEmpty()) {
-            addFirst(d);
-        } else if (d.compareToIgnoreCase(header.getElement()) <= 0) {
-            addBetween(d, trailer, header.getNext());
-        } else if (d.compareToIgnoreCase(trailer.getElement()) > 0) {
-            addBetween(d, trailer.getPrev(), header);
-        } else {
-            Node aux = header.getNext();
-            while (aux.getElement().compareToIgnoreCase(d) < 0)
+
+    public void addElement (String d){
+        Node aux = header.getNext();
+        if(!isEmpty()){
+            while(aux != trailer) {
+                if (aux.getElement().compareToIgnoreCase(d) > 0) {
+                    addBetween(d, aux.getPrev(), aux);
+                    return;
+                } else if (aux.getNext() == trailer) {
+                    addLast(d);
+                    return;
+                }
                 aux = aux.getNext();
-            addBetween(d, aux, aux.getNext());
+            }
+        }else{
+            addFirst(d);
         }
     }
+//    public void addElement(String d) {
+//        if (isEmpty()) {
+//            addFirst(d);
+//        } else if (d.compareToIgnoreCase(header.getNext().getElement()) <= 0) {
+//            addBetween(d, trailer, header.getNext());
+//        } else if (d.compareToIgnoreCase(trailer.getElement()) > 0) {
+//            addBetween(d, trailer.getPrev(), header);
+//        } else {
+//            Node aux = header.getNext();
+//            while (aux.getElement().compareToIgnoreCase(d) < 0)
+//                aux = aux.getNext();
+//            addBetween(d, aux, aux.getNext());
+//        }
+//    }
 
     public void addBetween(String d, Node predecessor, Node successor) {
         Node newest = new Node(d, predecessor, successor);

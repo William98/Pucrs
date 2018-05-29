@@ -20,11 +20,12 @@ public class Main {
 
         /* Ordenacao da Lista Duplamente Encadeada via Bubble Sort */
         dll.Sort();
-        System.out.println("--       LISTA ORDENADA       --");
+        System.out.println("--        DLL ORDENADA        --");
         System.out.println("--------------------------------");
         dll.printList();
 
-
+        System.out.println("--       LISTA ORDENADA       --");
+        System.out.println("--------------------------------");
         sl.addElement("Neo");
         sl.addElement("Trinity");
         sl.addElement("Morpheus");

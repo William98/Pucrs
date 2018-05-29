@@ -95,7 +95,6 @@ public class DoublyLinkedList{
 
     }
 
-    // @TODO Metodo não esta funcionando
     public void Sort(){
         if(size() > 0){
             Node aux1, aux2;
