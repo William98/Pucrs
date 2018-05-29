@@ -8,13 +8,25 @@ entity dec_cron is
 		CLOCK_FREQ : integer := 25000000
 	);
     port ( 
-
+	clock : IN std_logic;
+	reset : IN std_logic;
+	carga : IN std_logic;
+	conta : IN std_logic;
+	keys  : IN std_logic_vector(6 downto 0)
     );
 end dec_cron;
 
 architecture dec_cron of dec_cron is
-
    --SINAIS
+	signal clk_seg : std_logic := '0';
+
+	signal segundos_bcd : std_logic_vector(7 downto 0) := "00000000";
+	signal minutos_bcd : std_logic_vector(7 downto 0) := "00000000";
+
+	signal d1 : std_logic_vector(6 downto 0);
+	signal d2 : std_logic_vector(6 downto 0);
+	signal d3 : std_logic_vector(6 downto 0);
+	signal d4 : std_logic_vector(6 downto 0);
 
 type ROM is array (0 to 99) of std_logic_vector (7 downto 0);
 constant Conv_to_BCD : ROM:=(
@@ -44,26 +56,39 @@ constant Conv_to_BCD : ROM:=(
     
 begin
 
-    -- P1:  divisor de clock para gerar o ck1seg
+    -- P1:  divisor de clock para gerar o clk1seg
+	divisor: process(clock, reset)
+	begin
+		-- dividir o clock em 1 segundo
+	end process;
 
     -- P2/P3: máquina de estados para determinar o estado atual (EA)
-
+	estados: process(clock, reset)
+	begin
+		-- maquina de estados parecida com a do T1B
+	end process;
     -- P4: contador de segundos
-
+	cont_segundos: process(clk_seg, reset)
+	begin
+		-- incrementar o segundo
+	end process;
     -- P5: contador de minutos
-
+	cont_minutos: process(clk_seg, reset)
+	begin
+		-- incrementar o minuto
+	end process;
 		-- instanciação das ROMs
 		segundos_bcd <= conv_to_BCD(conv_integer(segundos));
-		minutos_bcd  <= ...
+		minutos_bcd  <= conv_to_BCD(conv_integer(minutos));
 
 		-- display driver
 		d1 <= '1' & segundos_bcd(3 downto 0) & '1';
-		d2 <= ...
-		d3 <= ...
-		d4 <= ...
+		d2 <= '1' & segundos_bcd(7 downto 4) & '1';
+		d3 <= '1' & minutos_bcd(3 downto 0) & '1';
+		d4 <= '1' & minutos_bcd(7 downto 0) & '1';
 		display_driver : entity work.dspl_drv
 		port map (
-		  ...
+		  ... -- mapear os "fios" de acordo com as entradas do projeto
 		);
 		
 end dec_cron;
