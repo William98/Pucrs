@@ -7,8 +7,8 @@ class Transacao{
     private:
         DataTransacao data;
         double valor;
-        char descricao; // D - Deposito, S - saque, E - extrato
-    
+        char descricao; // D - Deposito, S - saque
+
     public:
         Transacao(DataTransacao date, double v, char desc){
             data = date;

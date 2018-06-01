@@ -32,6 +32,11 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Conta.h" />
+		<Unit filename="ContaCorrente.h" />
+		<Unit filename="ContaPoupanca.h" />
+		<Unit filename="DataTransacao.h" />
+		<Unit filename="Transacao.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<envvars />
