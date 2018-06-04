@@ -1,1 +1,0 @@
--intstyle "ise" -incremental -o "/home/17111178/Pucrs/LabOrg/T2A/transmissor/transmissor_tb_isim_beh.exe" -prj "/home/17111178/Pucrs/LabOrg/T2A/transmissor/transmissor_tb_beh.prj" "work.transmissor_tb" 
