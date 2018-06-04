@@ -1,0 +1,12 @@
+Command line:
+   transmissor_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  42179
+
+Mon Jun  4 11:17:05 2018
+
+Resolution function required for the Net /transmissor/ea driven by:
+/transmissor//transmissor.vhd:controle
+/transmissor//transmissor.vhd:combinacional
+

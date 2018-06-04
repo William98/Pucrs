@@ -19,9 +19,9 @@ end dec_cron;
 architecture dec_cron of dec_cron is
    --SINAIS
 	signal clk_seg : std_logic := '0';
-
-	signal segundos_bcd : std_logic_vector(7 downto 0) := "00000000";
-	signal minutos_bcd : std_logic_vector(7 downto 0) := "00000000";
+	signal cont		: integer 	:= 1;
+	signal segundos_bcd 	: std_logic_vector(7 downto 0) := "00000000";
+	signal minutos_bcd 	: std_logic_vector(7 downto 0) := "00000000";
 
 	signal d1 : std_logic_vector(6 downto 0);
 	signal d2 : std_logic_vector(6 downto 0);
@@ -56,10 +56,17 @@ constant Conv_to_BCD : ROM:=(
     
 begin
 
-    -- P1:  divisor de clock para gerar o clk1seg
+    -- P1:  divisor de clock para gerar o clk_seg
 	divisor: process(clock, reset)
 	begin
 		-- dividir o clock em 1 segundo
+		if clock'event and clock = '1' then
+			cont <= cont + 1;
+			if cont = CLOCK_FREQ then
+				clk_seg <= not clk_seg;
+				cont <= 1;
+			end if;
+		end if;
 	end process;
 
     -- P2/P3: máquina de estados para determinar o estado atual (EA)
@@ -71,6 +78,7 @@ begin
 	cont_segundos: process(clk_seg, reset)
 	begin
 		-- incrementar o segundo
+			
 	end process;
     -- P5: contador de minutos
 	cont_minutos: process(clk_seg, reset)
@@ -86,9 +94,18 @@ begin
 		d2 <= '1' & segundos_bcd(7 downto 4) & '1';
 		d3 <= '1' & minutos_bcd(3 downto 0) & '1';
 		d4 <= '1' & minutos_bcd(7 downto 0) & '1';
-		display_driver : entity work.dspl_drv
-		port map (
-		   -- mapear os "fios" de acordo com as entradas do projeto
-		);
+		--display_driver : entity work.dspl_drv
+		--port map (		
+		-- mapear os "fios" de acordo com as entradas do projeto
+--		clock: in STD_LOGIC;
+--		reset: in STD_LOGIC;
+--		d4: in STD_LOGIC_VECTOR (5 downto 0);
+--		d3: in STD_LOGIC_VECTOR (5 downto 0);
+--		d2: in STD_LOGIC_VECTOR (5 downto 0);
+--		d1: in STD_LOGIC_VECTOR (5 downto 0);
+--		an: out STD_LOGIC_VECTOR (3 downto 0);
+--		dec_ddp: out STD_LOGIC_VECTOR (7 downto 0)
+		
+		--);
 		
 end dec_cron;
