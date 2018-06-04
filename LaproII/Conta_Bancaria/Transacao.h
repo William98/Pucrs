@@ -7,7 +7,7 @@ class Transacao{
     private:
         DataTransacao *data;
         double valor;
-        char descricao; // D - Deposito, S - saque
+        char descricao; // D - Deposito, S - Saque
 
     public:
         Transacao(int d, int m, int a, double v, char desc){
