@@ -1,37 +1,26 @@
 #include "Conta.h"
 
-class ContaPoupanca : public Conta
+class ContaSimples: public Conta
 {
-    private:
-        int diaAniversario;
-
     public:
-        ContaPoupanca(int numero, string nome, double saldo, int dia):Conta(numero, nome, saldo){
-            diaAniversario = dia;
+        ContaSimples(int numero, string nome, double saldo):Conta(numero, nome, saldo){
+            // Construtora
         }
-
-        int getDiaAniversario(){
-            return diaAniversario;
-        }
-        void setDiaAniversario(int dia){
-            diaAniversario = dia;
-        }
-
         void deposito(double valor){
             saldo = saldo + valor;
             // Registrar transacao
-            cout << "Depositado R$" << setprecision(2) << valor << endl;
+            cout << "Depositado R$" << valor << endl;
         }
 
         void saque(double valor){
-            if(saldo => valor){
+            if(saldo >= valor){
                 saldo = saldo - valor;
                 // Registrar transacao
-                cout << "Sacado R$" << setprecision(2) << valor << endl;
+                cout << "Sacado R$" << valor << endl;
             }else{
                 cout << "Saldo insuficiente" << endl;
             }
-        }
+        };
 
         void extrato(){
             cout << "===== EXTRATO DA CONTA =====" << endl;
@@ -39,7 +28,6 @@ class ContaPoupanca : public Conta
             cout << " INFORMACOES DO CLIENTE " << endl;
             cout << "Nro Conta: " << numeroConta << endl;
             cout << "Cliente: " << nomeCorrentista << endl;
-            cout << "Aniversario: " << diaAniversario << endl;
             cout << "________ TRANSACOES ________" << endl;
             /* Imprimir transacoes */
             cout << "____________________________" << endl;

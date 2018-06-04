@@ -1,4 +1,5 @@
 #include <iostream>
+
 using namespace std;
 
 class DataTransacao{
@@ -6,7 +7,7 @@ class DataTransacao{
         int dia;
         int mes;
         int ano;
-    
+
     public:
         DataTransacao(int d, int m, int a){
             dia = d;
@@ -16,10 +17,10 @@ class DataTransacao{
 
         int getDia(){ return dia; }
         void setDia(int d){ dia = d; }
-        
+
         int getMes(){ return mes; }
         void setMes(int m){ mes = m; }
-        
+
         int getAno(){ return ano; }
         void setAno(int a){ ano = a; }
 };

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 #include "Transacao.h"
@@ -16,7 +17,7 @@ class Conta
         Conta(int numero, string nome, double saldo){
             numeroConta = numero;
             nomeCorrentista = nome;
-            saldo = saldo;            
+            saldo = saldo;
         }
 
         int getNumeroConta(){
@@ -40,24 +41,16 @@ class Conta
             saldo = s;
         }
 
-        /* Metodo responsavel pelo deposito */ 
-        void deposito(double valor){
-            saldo = saldo + valor;
-        }
+        /* Metodo responsavel pelo deposito */
+        virtual void deposito(double valor){
 
+        }
         /* Metodo responsavel pelo saque */
-        virtual double saque(double valor){
-            if(saldo > valor){
-                saldo = saldo - valor;
-                return valor;
-            }
-        }
+        virtual void saque(double valor){
 
+        }
         /* Metodo responsavel pela impressao do extrato */
         virtual void extrato(){
-            cout << "Nro Conta: " << numeroConta << endl;
-            cout << "Cliente: " << nomeCorrentista << endl;
-            /* Imprimir transacoes */
-            cout << "Saldo: " << saldo << endl;
+
         }
 };

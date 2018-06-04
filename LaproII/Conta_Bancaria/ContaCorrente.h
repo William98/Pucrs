@@ -18,4 +18,28 @@ class ContaCorrente : public Conta
             limite = l;
         }
 
+        void deposito(double valor){
+            saldo = saldo + valor;
+            // Registrar transacao
+            cout << "Depositado R$" << setprecision(2) << valor << endl;
+        }
+
+        void saque(double valor){
+            if((saldo+limite) => valor){
+                saldo = saldo - valor;
+                // Registrar transacao
+                cout << "Sacado R$" << setprecision(2) << valor << endl;
+            }else{
+                cout << "Saldo insuficiente" << endl;
+            }
+        }
+
+        void extrato(){
+            cout << "Nro Conta: " << numeroConta << endl;
+            cout << "Cliente: " << nomeCorrentista << endl;
+            /* Imprimir transacoes */
+            cout << "Saldo: " << saldo << endl;
+            cout << "Dia do Aniversario: " << diaAniversario << endl;
+        }
+
 };
