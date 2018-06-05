@@ -129,9 +129,9 @@ public class BinarySearchTree {
         if(n == null)
             System.out.println(sp+"*");
         else{
-            System.out.println(sp + n.getElement());
-            proOrder(n.getRight(), i+1);
             proOrder(n.getLeft(), i+1);
+            proOrder(n.getRight(), i+1);
+            System.out.println(sp + n.getElement());
         }
     }
 
