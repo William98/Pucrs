@@ -48,7 +48,7 @@ public class BinarySearchTree {
             return n;
         else if ((d.compareToIgnoreCase(n.getElement()) > 0) && (n.getRight() != null))
             return find(d, n.getRight());
-        else if ((d.compareToIgnoreCase(n.getElement()) <= 0) && (n.getRight() != null))
+        else if ((d.compareToIgnoreCase(n.getElement()) <= 0) && (n.getLeft() != null))
             return find(d, n.getLeft());
         return null;
     }
