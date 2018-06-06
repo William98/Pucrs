@@ -15,13 +15,13 @@ architecture transmissor_arc of transmissor is
 begin
 	controle: process(reset,clock)
 	begin
-		if reset='1' then 
+		if reset='1' then
 			EA <= REP;
 		elsif clock'event and clock='1' then
 			EA <= PE;
 		end if;
 	end process;
-	
+
 	combinacional: process(EA, send)
 	begin
 		case EA is
@@ -41,6 +41,6 @@ begin
 			when S9 => PE<=REP; ocupado <= '1'; linha <= '0';
 		end case;
 	end process;
-	
+
 	busy <= ocupado;
 end transmissor_arc;
