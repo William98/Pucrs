@@ -5,7 +5,7 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity dec_cron is
 	generic (
-		CLOCK_FREQ : integer := 25000000
+		CLOCK_FREQ : integer := 50000000
 	);
     	port (
 		clock	: in std_logic;
@@ -20,18 +20,14 @@ end dec_cron;
 
 architecture dec_cron of dec_cron is
 
-   	--SINAIS
-   	signal clk_seg  : std_logic := '0'; -- clock em 1 segundo
-   	signal contador : integer := 0; -- contador para dividir clock
-
-		signal minutos  : std_logic_vector(6 downto 0); -- sinal responsavel pelos minutos
-		signal segundos : std_logic_vector(6 downto 0); -- sinal responsavel pelos segundos
-
-		signal d1, d2, d3, d4 : std_logic_vector(5 downto 0); -- sinais saida no display
-
-		signal ceS : std_logic; -- chip enable Segundo
-		signal ceM : std_logic; -- chip enable Minuto
-
+   --SINAIS
+   signal clk_seg  : std_logic := '0'; -- clock em 1 segundo
+   signal contador : integer := 0; -- contador para dividir clock
+	
+	signal segundos_bcd, minutos_bcd : std_logic_vector(7 downto 0); -- sinais de minutos e segundos BCD
+	signal segundos, minutos : std_logic_vector(7 downto 0); -- sinais de minutos e segundos
+	signal d1, d2, d3, d4 : std_logic_vector(5 downto 0); -- sinais saida no display
+	
 	type ROM is array (0 to 99) of std_logic_vector (7 downto 0);
 	constant Conv_to_BCD : ROM:=(
                 "00000000", "00000001", "00000010", "00000011", "00000100",
@@ -55,69 +51,118 @@ architecture dec_cron of dec_cron is
                 "10010000", "10010001", "10010010", "10010011", "10010100",
                 "10010101", "10010110", "10010111", "10011000", "10011001"
 	);
-	signal segundos_bcd, minutos_bcd : ROM; -- sinais de minutos e segundos
-
+	
 	type states is (REP, LOAD, COUNT);
     	signal EA, PE : states;
 
 begin
 	-- P1:  divisor de clock para gerar o clk_seg
 	divisor: process(clock, reset)
+	variable cont: integer range 0 to CLOCK_FREQ;
 	begin
-		if reset = '1' then
-			-- reset dos sinais
-
-	 	else if clock'event and clock = '1' then
-	 		-- divide o clock
-	 		if contador =< CLOCK_FREQ then
-	 			clk_seg <= not clk_seg;
-	 			contador <= 1;
-	 		else
-	 			contador <= contador + 1;
-	 		end if;
-	 	end if;
+		if reset='1' then
+			clk_seg <= '0';
+		else if(clock'event and clock='1' and ce='1')then
+			if(cont<CLOCK_FREQ)then
+				cont:=cont+1;
+				clk_seg <= not clk_seg;
+			else				
+				cont:=0;
+			end if;
+		end if;
+		end if;
 	end process;
 
 	-- P2/P3: máquina de estados para determinar o estado atual (EA)
-	estados: process(clk_seg, reset)
+	-- Altera o estado atual de acordo com o que esta salvo proximo estado
+	set_estados: process(clk_seg, reset)
 	begin
-	-- maquina de estados parecida com a do T1B
-	if reset = '1' then
-	 	EA <= REP;
-	 else if clk_seg'event and clk_seg = '1' then
-	 	case EA is
-	 		when REP=> if carga = '1' then EA <= LOAD; end if;
-	 		when LOAD=> if conta = '1' then EA <= COUNT; end if; -- carregar minutos
-	 		when COUNT=> if minuto(6 downto 0) = "0000000" then EA <= REP; end if;
-	 	end case;
-	 end if;
+		if reset = '1' then
+			EA <= REP;
+		else if clk_seg'event and clk_seg = '1' then 
+			EA <= PE;
+		end if;
+		end if;
+	end process;
+	-- @TODO process apresenta erro
+	update_estados: process(EA, conta, carga, segundos, minutos) -- inserir clock ou clk_seg?
+	begin
+		case EA is
+			when REP => 
+				if carga = '1' then
+					PE <= LOAD;
+					-- chip enable
+				else
+					PE <= EA;
+					-- chip enable
+				end if;
+			when LOAD =>
+				if conta = '1' then 
+					PE <= COUNT;
+					-- chip enable
+				else
+					PE <= EA;
+					-- chip enable
+				end if;
+			when COUNT =>
+				if segundos = "0000000" and minutos = "0000000" then
+					PE <= REP;
+					-- chip enable
+				else
+					PE <= EA;
+					-- chip enable
+				end if;
 	end process;
 
-
 	-- P4: contador de segundos
-	cont_segundo: process(clock, reset)
+	-- Decrementa os segundos
+	cont_segundo: process(clk_seg, reset)
 	begin
-
+		if reset='1' then
+		segundos <= (others=>'0');
+		elsif clk_seg'event and clk_seg='1' then
+			if EA = REP then
+				segundos <= (others=>'0');
+			elsif EA = LOAD then
+	   			segundos <= (others=>'0');
+			elsif EA = COUNT and segundos > "00000000" then
+				segundos <= segundos-1;
+			else
+				segundos <= "00111011";			
+			end if;
+		end if;
 	end process;
 
 	-- P5: contador de minutos
 	cont_minuto: process(clock, reset)
 	begin
-
+		if reset='1' then
+			minutos <= (others=>'0');
+		elsif clk_seg'event and clk_seg='1' then
+			if EA = REP then
+				minutos <= (others=>'0');
+			elsif EA = LOAD then
+				minutos <= '0' & chaves;
+			elsif EA = COUNT and segundos = "00000000" and minutos > "00000000" then
+				minutos <= minutos-1;
+			else
+				minutos <= (others=>'0');
+			end if;
+		end if;
 	end process;
 
-		-- instanciação das ROMs
-		segundos_bcd <= conv_to_BCD(conv_integer(segundos)); -- conversao de segundos (Binary coded Decimal)
-		minutos_bcd  <= conv_to_BCD(conv_integer(minutos)); -- conversao de minutos (Binary coded Decimal)
+	-- instanciação das ROMs
+	segundos_bcd <= conv_to_BCD(conv_integer(segundos)); -- conversao de segundos (Binary coded Decimal)
+	minutos_bcd  <= conv_to_BCD(conv_integer(minutos)); -- conversao de minutos (Binary coded Decimal)
 
-		-- display driver
-		d1 <= '1' & segundos_bcd(3 downto 0) & '1'; -- separacao da parte menos significativa
-		d2 <= '1' & segundos_bcd(7 downto 4) & '1'; -- separacao da parte mais significativa
-		d3 <= '1' & minutos_bcd(3 downto 0) & '1'; -- separacao da parte menos significativa
-		d4 <= '1' & minutos_bcd(7 downto 4) & '1'; -- separacao da parte mais significativa
-		-- mapeado sinais do driver do display
-		display_driver : entity work.dspl_drv
-		port map (clock=> clock, reset=> reset, d1=> d1, -- mapeado "fios do driver do display"
-			d2=> d2, d3=> d3, d4=> d4);
+	-- display driver
+	d1 <= '1' & segundos_bcd(3 downto 0) & '1'; -- separacao da parte menos significativa
+	d2 <= '1' & segundos_bcd(7 downto 4) & '1'; -- separacao da parte mais significativa
+	d3 <= '1' & minutos_bcd(3 downto 0) & '1'; -- separacao da parte menos significativa
+	d4 <= '1' & minutos_bcd(7 downto 4) & '1'; -- separacao da parte mais significativa
+	-- mapeado sinais do driver do display
+	display_driver : entity work.dspl_drv
+	port map (clock=> clock, reset=> reset, d1=> d1, -- mapeado "fios do driver do display"
+		d2=> d2, d3=> d3, d4=> d4);
 
 end dec_cron;
