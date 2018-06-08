@@ -4,12 +4,12 @@
 --
 
 --
--- This module implements the interface hardware needed to drive some
--- Digilent boards four digit seven segment display. This
+-- This module implements the interface hardware needed to drive some 
+-- Digilent boards four digit seven segment display. This 
 -- display is multiplexed (see the specific board Reference Manual for details)
 -- requiring that just one digit be displayed at any moment.
 -- Examples boards are D2SB/DIO4, Spartan3 Starter Kit and Nexys
---
+-- 
 -- The inputs of the module are:
 --		clock - the 50MHz system board clock
 --		reset - the active-high system reset signal
@@ -19,7 +19,7 @@
 --		di(5) is the (active-high) enable signal of the digit
 --      here, i varies from 4 to 1, 4 corresponds to the rightmost
 --		  digit of the display and 1 corresponds to the leftmost digit
---
+-- 
 -- The outputs of the module are:
 --		an (4 downto 1) - the four wire active-low anode vector.
 -- 			In this circuit, exactly one of these 4 wires is at logic 0
@@ -79,17 +79,17 @@ begin
 			end if;
 		end if;
 	end process;
-
+	
 	-- 1KHz counter to select digit and register output
 	process (reset, ck_1KHz)
 	begin
 		if reset='1' then
-			dig_selection <= (others => '0');
+			dig_selection <= (others => '0'); 
 			an <= (others => '1'); 					-- Disable all displays
 		elsif (ck_1KHz'event and ck_1KHz='1') then
-			-- a 2-bit Johnson counter
+			-- a 2-bit Johnson counter		
 			dig_selection <= dig_selection(0)  & not dig_selection (1);
-
+			
 			if dig_selection="00" then
 			    selected_dig <= d1(4 downto 0);
 			    an <= "111"  & (not d1(5));
@@ -103,9 +103,9 @@ begin
 			    selected_dig <= d4(4 downto 0);
 			    an <= (not d4(5)) & "111";
 			end if;
-		end if;
+		end if; 
 	end process;
-
+	
 	-- digit 4-to-hex decoder
 	with selected_dig (4 downto 1) select
 	dec_ddp(7 downto 1) <=
@@ -127,5 +127,5 @@ begin
 		"0111000" when others; --F
 	-- and the decimal point
 	dec_ddp(0) <= selected_dig(0);
-
+											  
 end dspl_drv;
