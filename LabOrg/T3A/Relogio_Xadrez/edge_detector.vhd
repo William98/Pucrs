@@ -15,17 +15,34 @@ entity edge_detector is
 end edge_detector;
 
 architecture edge_detector of edge_detector is
-        signal din_reg          : std_logic;
+        signal contador: std_logic_vector (16 downto 0);
+        type states is (REP, ATIVA, WAITC); 
+        signal EA : states;
 begin
         
-   rising <= '1' when din_reg = '0' and din = '1' else '0';
-
-   process (clock,reset)
+ process (clock,reset)
    begin
           if reset='1' then 
-                 din_reg <= '0';
+                 EA <= REP;
+                 rising <= '0';
+                 contador <= (others=>'0'); 
           elsif clock'event and clock='1' then
-                  din_reg <= din;
+            case EA is
+               when REP =>    if din='1' then   
+                                   contador <= (others=>'0'); 
+                                   EA<=ATIVA;
+                                   rising <= '1';       
+                              end if;
+
+               when ATIVA =>  EA <= WAITC; 
+                              rising <= '0';                     
+
+               when WAITC =>  if din='0' and contador > 130000 then   ---   tempo de 2,6 ms para filtrar ruido
+                                     EA<=REP;     
+                              else
+                                     contador <= contador + 1;
+                              end if;
+            end case;
           end if;       
    end process;
 

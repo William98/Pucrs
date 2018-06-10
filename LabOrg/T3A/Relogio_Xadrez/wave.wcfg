@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="F:/relogioXandrez/tb_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="std_logic_1164" />
+            <top_module name="std_logic_arith" />
+            <top_module name="std_logic_unsigned" />
+            <top_module name="tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="22" />
+   <wvobject fp_name="/tb/clock" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clock</obj_property>
+      <obj_property name="ObjectShortName">clock</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/reset" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/chaves" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">chaves[6:0]</obj_property>
+      <obj_property name="ObjectShortName">chaves[6:0]</obj_property>
+      <obj_property name="label">chaves[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/uut/ea" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">ea</obj_property>
+      <obj_property name="ObjectShortName">ea</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/uut/pe" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">pe</obj_property>
+      <obj_property name="ObjectShortName">pe</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/carga" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">carga</obj_property>
+      <obj_property name="ObjectShortName">carga</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/uut/carga_int" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">carga_int</obj_property>
+      <obj_property name="ObjectShortName">carga_int</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/j1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">j1</obj_property>
+      <obj_property name="ObjectShortName">j1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/uut/j1_int" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">j1_int</obj_property>
+      <obj_property name="ObjectShortName">j1_int</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/j2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">j2</obj_property>
+      <obj_property name="ObjectShortName">j2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/uut/j2_int" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">j2_int</obj_property>
+      <obj_property name="ObjectShortName">j2_int</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/uut/conta" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">conta</obj_property>
+      <obj_property name="ObjectShortName">conta</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider30" type="divider">
+      <obj_property name="label">Jogador 1</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/uut/led_j1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">led_j1</obj_property>
+      <obj_property name="ObjectShortName">led_j1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/uut/fim_j1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">fim_j1</obj_property>
+      <obj_property name="ObjectShortName">fim_j1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/uut/i_cron_j2/minutos" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">minutos[7:0]</obj_property>
+      <obj_property name="ObjectShortName">minutos[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/uut/i_cron_j2/segundos" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">segundos[7:0]</obj_property>
+      <obj_property name="ObjectShortName">segundos[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider31" type="divider">
+      <obj_property name="label">Jogador 2</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/uut/led_j2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">led_j2</obj_property>
+      <obj_property name="ObjectShortName">led_j2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/uut/fim_j2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">fim_j2</obj_property>
+      <obj_property name="ObjectShortName">fim_j2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/uut/i_cron_j1/minutos" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">minutos[7:0]</obj_property>
+      <obj_property name="ObjectShortName">minutos[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/uut/i_cron_j1/segundos" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">segundos[7:0]</obj_property>
+      <obj_property name="ObjectShortName">segundos[7:0]</obj_property>
+   </wvobject>
+</wave_config>
