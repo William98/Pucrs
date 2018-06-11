@@ -23,4 +23,8 @@ class DataTransacao{
 
         int getAno(){ return ano; }
         void setAno(int a){ ano = a; }
+
+        void imprime(){
+            cout << getDia() << "/" << getMes() << "/" << getAno() << endl;
+        }
 };

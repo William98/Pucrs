@@ -9,6 +9,7 @@ class ContaSimples: public Conta
         void deposito(double valor){
             saldo = saldo + valor;
             // Registrar transacao
+            insereTransacao(valor, 'D');
             cout << "Depositado R$" << valor << endl;
         }
 
@@ -16,6 +17,7 @@ class ContaSimples: public Conta
             if(saldo >= valor){
                 saldo = saldo - valor;
                 // Registrar transacao
+                insereTransacao(valor, 'S');
                 cout << "Sacado R$" << valor << endl;
             }else{
                 cout << "Saldo insuficiente" << endl;
@@ -29,7 +31,7 @@ class ContaSimples: public Conta
             cout << "Nro Conta: " << numeroConta << endl;
             cout << "Cliente: " << nomeCorrentista << endl;
             cout << "________ TRANSACOES ________" << endl;
-            /* Imprimir transacoes */
+            imprimeTransacoes();
             cout << "____________________________" << endl;
             cout << "Saldo: R$" << saldo << endl;
             cout << "============================" << endl;

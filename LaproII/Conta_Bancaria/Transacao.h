@@ -5,14 +5,50 @@ using namespace std;
 
 class Transacao{
     private:
-        DataTransacao *data;
+        Transacao *prox;
         double valor;
         char descricao; // D - Deposito, S - Saque
+        DataTransacao *data;
 
     public:
-        Transacao(int d, int m, int a, double v, char desc){
-            data = new DataTransacao(d, m, a);
+        Transacao(double v, char desc){
+            data = new DataTransacao(10, 10, 2010); // 10-10-2010
             valor = v;
             descricao = desc;
         }
+
+        void setProx(Transacao *p){
+            prox = p;
+        }
+
+        Transacao *getProx(){
+            return prox;
+        }
+
+        void setValor(double v){
+            valor = v;
+        }
+
+        double getValor(){
+            return valor;
+        }
+
+        void setDescricao(char d){
+            descricao = d;
+        }
+
+        char getDescricao(){
+            return descricao;
+        }
+
+        void imprime(){
+            cout << "_________" << endl;
+            data->imprime();
+            cout << getValor() << endl;
+            char a = getDescricao();
+            string desc = (a == 'D') ? "Deposito" : "Saque";
+            cout << desc << endl;
+            cout << "_________" << endl;
+        }
+
 };

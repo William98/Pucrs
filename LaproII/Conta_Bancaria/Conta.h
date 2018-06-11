@@ -15,6 +15,7 @@ class Conta
 
     public:
         Conta(int numero, string nome, double saldo){
+            t = NULL;
             numeroConta = numero;
             nomeCorrentista = nome;
             saldo = saldo;
@@ -43,14 +44,43 @@ class Conta
 
         /* Metodo responsavel pelo deposito */
         virtual void deposito(double valor){
-
+            /* @override */
         }
         /* Metodo responsavel pelo saque */
         virtual void saque(double valor){
-
+            /* @override */
         }
         /* Metodo responsavel pela impressao do extrato */
         virtual void extrato(){
+            /* @override */
+        }
 
+        /* Metodo responsavel por guardar transacao */
+        void insereTransacao(double valor, char desc){
+            Transacao *aux;
+            Transacao *tmp = new Transacao(valor, desc);
+            if(t == NULL){
+                t = tmp;
+            }else{
+                aux = t;
+                while(aux->getProx() != NULL){
+                    aux = aux->getProx();
+                }
+                aux->setProx(tmp);
+            }
+        }
+
+        /* Metodo de impressao das transacoes */
+        void imprimeTransacoes(){
+            if(t != NULL){
+                Transacao *aux;
+                aux = t;
+                while(aux != NULL){
+                    aux->imprime();
+                    aux = aux->getProx();
+                }
+            }else{
+                cout << "       Sem Transacoes       " << endl;
+            }
         }
 };

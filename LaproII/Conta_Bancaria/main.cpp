@@ -17,13 +17,5 @@ int main()
 
     cs1.extrato();
 
-    char a = 'D';
-    string desc = (a == 'D') ? "Deposito" : "Saque";
-
-    cout << desc << endl;
-
-
-
-
     return 0;
 }
