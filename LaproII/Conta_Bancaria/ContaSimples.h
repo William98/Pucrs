@@ -10,7 +10,7 @@ class ContaSimples: public Conta
             saldo = saldo + valor;
             // Registrar transacao
             insereTransacao(valor, 'D');
-            cout << "Depositado R$" << valor << endl;
+            cout << "Depositado R$" << fixed << valor << cout.precision(1) << endl;
         }
 
         void saque(double valor){
@@ -18,7 +18,7 @@ class ContaSimples: public Conta
                 saldo = saldo - valor;
                 // Registrar transacao
                 insereTransacao(-valor, 'S');
-                cout << "Sacado R$" << valor << endl;
+                cout << "Sacado R$" << fixed << valor << cout.precision(1) << endl;
             }else{
                 cout << "Saldo insuficiente" << endl;
             }
@@ -27,12 +27,21 @@ class ContaSimples: public Conta
         void extrato(){
             cout << "===== EXTRATO DA CONTA =====" << endl;
             cout << "============================" << endl;
-            cout << " INFORMACOES DO CLIENTE " << endl;
+            cout << "== INFORMACOES DO CLIENTE ==" << endl;
             cout << "Nro Conta: " << numeroConta << endl;
             cout << "Cliente: " << nomeCorrentista << endl;
             cout << "________ TRANSACOES ________" << endl;
             imprimeTransacoes();
             cout << "____________________________" << endl;
+            cout << "Saldo: R$ " << fixed << saldo << cout.precision(1) << endl;
+            //cout << "Saldo: R$" << saldo << endl;
+            cout << "============================" << endl;
+        }
+
+        void imprimeInfo(){
+            cout << "== INFORMACOES DO CLIENTE ==" << endl;
+            cout << "Nro Conta: " << numeroConta << endl;
+            cout << "Cliente: " << nomeCorrentista << endl;
             cout << "Saldo: R$ " << fixed << saldo << cout.precision(1) << endl;
             //cout << "Saldo: R$" << saldo << endl;
             cout << "============================" << endl;

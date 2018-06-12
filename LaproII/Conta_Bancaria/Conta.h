@@ -54,7 +54,10 @@ class Conta
         virtual void extrato(){
             /* @override */
         }
-
+        /* Metodo responsavel pela impressao da info da Conta */
+        virtual void imprimeInfo(){
+            /* @override */
+        }
         /* Metodo responsavel por guardar transacao */
         void insereTransacao(double valor, char desc){
             Transacao *aux;
