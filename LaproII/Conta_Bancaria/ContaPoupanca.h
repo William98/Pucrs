@@ -20,13 +20,15 @@ class ContaPoupanca : public Conta
         void deposito(double valor){
             saldo = saldo + valor;
             /* Registrar transacao */
+            insereTransacao(valor, 'D');
             cout << "Depositado R$" << setprecision(2) << valor << endl;
         }
 
         void saque(double valor){
-            if(saldo => valor){
+            if(saldo >= valor){
                 saldo = saldo - valor;
                 /* Registrar transacao */
+                insereTransacao(-valor, 'S');
                 cout << "Sacado R$" << setprecision(2) << valor << endl;
             }else{
                 cout << "Saldo insuficiente" << endl;
@@ -42,8 +44,10 @@ class ContaPoupanca : public Conta
             cout << "Aniversario: " << diaAniversario << endl;
             cout << "________ TRANSACOES ________" << endl;
             /* Imprimir transacoes */
+            imprimeTransacoes();
             cout << "____________________________" << endl;
-            cout << "Saldo: R$" << saldo << endl;
+            cout << "Saldo: R$ " << fixed << saldo << cout.precision(1) << endl;
+            //cout << "Saldo: R$" << saldo << endl;
             cout << "============================" << endl;
         }
 };

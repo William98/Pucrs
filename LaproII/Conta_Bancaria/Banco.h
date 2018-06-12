@@ -2,7 +2,7 @@
 
 class Banco{
     private:
-        
+                
     public:
         
 };
