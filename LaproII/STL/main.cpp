@@ -14,23 +14,25 @@ int main()
 {
 
     cout << "Hello world!" << endl;
+	// @corrigido
+    list <Pessoa*> VP;
+    list <Pessoa*>::iterator ptr;
 
-    list <Pessoa> VP;
-    list <Pessoa>::iterator ptr;
-
-    VP.push_back(Aluno("Joao", 25, "EC"));
-    VP.push_back(Aluno("Maria", 32, "CC"));
-    VP.push_back(Aluno("Carla", 4, "SI"));
-    VP.push_back(Aluno("Abel", 30, "ES"));
+    VP.push_back(new Aluno("Joao", 25, "EC"));
+    VP.push_back(new Aluno("Maria", 32, "CC"));
+    VP.push_back(new Aluno("Carla", 4, "SI"));
+    VP.push_back(new Aluno("Abel", 30, "ES"));
 
 //    VP.sort ( VP.begin(), VP.end(), ordena_por_nome);
 
     // percorrendo a lista sem indices
+    Pessoa *aux;
     for(ptr = VP.begin(); ptr != VP.end(); ptr++)
     {
+        aux = *ptr;
 //        cout << "Nome: " << ptr->getNome();
 //        cout << " - Idade: " << ptr->getIdade() << endl;
-        ptr->print();
+        aux->print();
     }
 
     return 0;

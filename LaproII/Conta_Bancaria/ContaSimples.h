@@ -25,13 +25,7 @@ class ContaSimples: public Conta
         };
 
         void extrato(){
-            cout << "===== EXTRATO DA CONTA =====" << endl;
-            cout << "============================" << endl;
-            cout << "== INFORMACOES DO CLIENTE ==" << endl;
-            cout << "Nro Conta: " << numeroConta << endl;
-            cout << "Cliente: " << nomeCorrentista << endl;
-            cout << "________ TRANSACOES ________" << endl;
-            imprimeTransacoes();
+            Conta::extrato();
             cout << "____________________________" << endl;
             cout << "Saldo: R$ " << fixed << saldo << cout.precision(1) << endl;
             //cout << "Saldo: R$" << saldo << endl;

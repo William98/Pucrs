@@ -1,5 +1,9 @@
+#ifndef _CONTA_
+#define _CONTA_
+
 #include <iostream>
 #include <iomanip>
+
 using namespace std;
 
 #include "Transacao.h"
@@ -52,12 +56,19 @@ class Conta
         }
         /* Metodo responsavel pela impressao do extrato */
         virtual void extrato(){
+            cout << "===== EXTRATO DA CONTA =====" << endl;
+            cout << "============================" << endl;
+            cout << "== INFORMACOES DO CLIENTE ==" << endl;
+            cout << "Nro Conta: " << numeroConta << endl;
+            cout << "Cliente: " << nomeCorrentista << endl;
+            cout << "________ TRANSACOES ________" << endl;
+            imprimeTransacoes();
+            cout << "____________________________" << endl;
+            cout << "Saldo: R$ " << fixed << saldo << cout.precision(1) << endl;
+            
             /* @override */
         }
-        /* Metodo responsavel pela impressao da info da Conta */
-        virtual void imprimeInfo(){
-            /* @override */
-        }
+       
         /* Metodo responsavel por guardar transacao */
         void insereTransacao(double valor, char desc){
             Transacao *aux;
@@ -87,3 +98,5 @@ class Conta
             }
         }
 };
+
+#endif

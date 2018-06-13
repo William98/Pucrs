@@ -38,30 +38,11 @@ class ContaCorrente : public Conta
         
         // Imprimi limites
         void extrato(){
-            cout << "===== EXTRATO DA CONTA =====" << endl;
-            cout << "============================" << endl;
-            cout << "== INFORMACOES DO CLIENTE ==" << endl;
-            cout << "Nro Conta: " << numeroConta << endl;
-            cout << "Cliente: " << nomeCorrentista << endl;
-            cout << "________ TRANSACOES ________" << endl;
-            imprimeTransacoes();
-            cout << "____________________________" << endl;
-            cout << "Saldo: R$ " << fixed << saldo << cout.precision(1) << endl;
             cout << "Limite: R$ " << fixed << limite << cout.precision(1) << endl;
             //cout << "Saldo:     R$" << saldo << endl;
             //cout << "Limite:    R$" << limite << endl;
             cout << "============================" << endl;
         }
 
-        void imprimeInfo(){
-            cout << "== INFORMACOES DO CLIENTE ==" << endl;
-            cout << "Nro Conta: " << numeroConta << endl;
-            cout << "Cliente: " << nomeCorrentista << endl;
-            cout << "Saldo: R$ " << fixed << saldo << cout.precision(1) << endl;
-            cout << "Limite: R$ " << fixed << limite << cout.precision(1) << endl;
-            //cout << "Saldo:     R$" << saldo << endl;
-            //cout << "Limite:    R$" << limite << endl;
-            cout << "============================" << endl;
-        }
 
 };
