@@ -42,13 +42,13 @@ class Transacao{
         }
 
         void imprime(){
-            cout << "_________" << endl;
+            cout << "____________________________" << endl;
             data->imprime();
-            cout << getValor() << endl;
+            cout << "Valor: R$" << getValor() << endl;
             char a = getDescricao();
             string desc = (a == 'D') ? "Deposito" : "Saque";
-            cout << desc << endl;
-            cout << "_________" << endl;
+            cout << "Tipo: " << desc << endl;
+            cout << "____________________________" << endl;
         }
 
 };

@@ -20,40 +20,51 @@ class Conta
     public:
         Conta(int numero, string nome, double saldo){
             t = NULL;
-            numeroConta = numero;
-            nomeCorrentista = nome;
-            saldo = saldo;
+            this->numeroConta = numero;
+            this->nomeCorrentista = nome;
+            this->saldo = saldo;
         }
 
         int getNumeroConta(){
             return numeroConta;
         }
         void setNumeroConta(int n){
-            numeroConta = n;
+            this->numeroConta = n;
         }
 
         string getNomeCorrentista(){
             return nomeCorrentista;
         }
         void setNomeCorrentista(string n){
-            nomeCorrentista = n;
+            this->nomeCorrentista = n;
         }
 
         double getSaldo(){
             return saldo;
         }
         void setSaldo(double s){
-            saldo = s;
+            this->saldo = s;
+        }
+
+        void Info(){
+            cout << "Conta " << getNumeroConta() << " - ";
+            cout << "Cliente " << getNomeCorrentista() << endl; 
         }
 
         /* Metodo responsavel pelo deposito */
-        virtual void deposito(double valor){
-            /* @override */
+        void deposito(double valor){
+            saldo = saldo + valor;
+            // Registrar transacao
+            insereTransacao(valor, 'D');
+            cout << "Depositado R$" << fixed << valor << cout.precision(1) << endl;
         }
+
         /* Metodo responsavel pelo saque */
         virtual void saque(double valor){
+            cout << "Soliticado saque de R$" << fixed << valor << cout.precision(1) << endl; 
             /* @override */
         }
+
         /* Metodo responsavel pela impressao do extrato */
         virtual void extrato(){
             cout << "===== EXTRATO DA CONTA =====" << endl;
@@ -65,10 +76,9 @@ class Conta
             imprimeTransacoes();
             cout << "____________________________" << endl;
             cout << "Saldo: R$ " << fixed << saldo << cout.precision(1) << endl;
-            
             /* @override */
         }
-       
+
         /* Metodo responsavel por guardar transacao */
         void insereTransacao(double valor, char desc){
             Transacao *aux;

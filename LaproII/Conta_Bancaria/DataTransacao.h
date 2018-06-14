@@ -25,6 +25,6 @@ class DataTransacao{
         void setAno(int a){ ano = a; }
 
         void imprime(){
-            cout << getDia() << "/" << getMes() << "/" << getAno() << endl;
+            cout << "Data Transaca: "<< getDia() << "/" << getMes() << "/" << getAno() << endl;
         }
 };

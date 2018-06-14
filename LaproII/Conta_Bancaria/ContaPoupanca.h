@@ -6,6 +6,7 @@ class ContaPoupanca : public Conta
         int diaAniversario;
 
     public:
+        // Construtora
         ContaPoupanca(int numero, string nome, double saldo, int dia):Conta(numero, nome, saldo){
             diaAniversario = dia;
         }
@@ -17,14 +18,8 @@ class ContaPoupanca : public Conta
             diaAniversario = dia;
         }
 
-        void deposito(double valor){
-            saldo = saldo + valor;
-            /* Registrar transacao */
-            insereTransacao(valor, 'D');
-            cout << "Depositado R$" << fixed << valor << cout.precision(1) << endl;
-        }
-
         void saque(double valor){
+            Conta::saque(valor);
             if(saldo >= valor){
                 saldo = saldo - valor;
                 /* Registrar transacao */
@@ -36,28 +31,9 @@ class ContaPoupanca : public Conta
         }
 
         void extrato(){
-            cout << "===== EXTRATO DA CONTA =====" << endl;
-            cout << "============================" << endl;
-            cout << "== INFORMACOES DO CLIENTE ==" << endl;
-            cout << "Nro Conta: " << numeroConta << endl;
-            cout << "Cliente: " << nomeCorrentista << endl;
+            Conta::extrato();
             cout << "Aniversario: " << diaAniversario << endl;
-            cout << "________ TRANSACOES ________" << endl;
-            /* Imprimir transacoes */
-            imprimeTransacoes();
-            cout << "____________________________" << endl;
-            cout << "Saldo: R$ " << fixed << saldo << cout.precision(1) << endl;
-            //cout << "Saldo: R$" << saldo << endl;
             cout << "============================" << endl;
         }
 
-        void imprimeInfo(){
-            cout << "== INFORMACOES DO CLIENTE ==" << endl;
-            cout << "Nro Conta: " << numeroConta << endl;
-            cout << "Cliente: " << nomeCorrentista << endl;
-            cout << "Aniversario: " << diaAniversario << endl;
-            cout << "Saldo: R$ " << fixed << saldo << cout.precision(1) << endl;
-            //cout << "Saldo: R$" << saldo << endl;
-            cout << "============================" << endl;
-        }
 };
