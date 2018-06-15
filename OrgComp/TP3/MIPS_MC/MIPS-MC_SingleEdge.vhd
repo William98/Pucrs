@@ -42,7 +42,7 @@ use IEEE.Std_Logic_1164.all;
 package p_MIPS_MCS is
 
     -- inst_type define as instru��es decodific�veis pelo bloco de controle
-    type inst_type is -- @Inserido BGTZ, CLO, MOVN e MSUBU
+    type inst_type is -- @inserido instruções BGTZ, CLO, MOVN e MSUBU
             ( ADDU, SUBU, AAND, OOR, XXOR, NNOR, SSLL, SLLV, SSRA, SRAV,
 				      SSRL, SRLV,ADDIU, ANDI, ORI, XORI, CLO, LUI, LBU, LW, SB, SW, SLT,
 				      SLTU, SLTI,	SLTIU, BEQ, BGTZ, BGEZ, BLEZ, BNE, J, JAL, JALR, JR,
@@ -180,14 +180,32 @@ entity alu is
 end alu;
 
 architecture alu of alu is
-   signal menorU, menorS : std_logic ;
+    signal contaBe, menorU, menorS : std_logic; -- @inserido instrução CLO
+    signal resCLO : std_logic_vector(31 downto 0); -- @inserido instrução CLO
 begin
-
+    
     menorU <=  '1' when op1 < op2 else '0';
     menorS <=  '1' when ieee.Std_Logic_signed."<"(op1,  op2) else '0' ; -- signed
+    contaBe <= '1' when ope_alu=CLO else '0'; -- @inserido instrução CLO
+
+    -- @inserido instrução CLO
+    cont_initials: process(contaBe) -- Processo utilizado pela função CLO
+        variable tmp: std_logic_vector(31 downto 0); -- Var tmp que armazena as ocorrencias de 1's até o primeiro 0 esq->dir
+    begin
+        tmp := x"00000000"; -- Inicializa a var tmp em '0'
+        for i in 31 downto 0 loop
+            if op1(i) = '0' then -- Verifica se houve ocorrencia de 0
+                exit;   -- Sai fora do loop
+            else
+                tmp := tmp + 1; -- Incrementa o tmp
+            end if;
+        end loop;
+        resCLO <= tmp; -- Armazena resultado no sinal 
+    end process;
 
     outalu <=
         op1 - op2                            when  op_alu=SUBU                     else
+        resCLO                               when  op_alu=CLO                      else -- @inserido instrução CLO | ULA retorna o resultado da contagem
         op1 and op2                          when  op_alu=AAND  or op_alu=ANDI     else
         op1 or  op2                          when  op_alu=OOR   or op_alu=ORI      else
         op1 xor op2                          when  op_alu=XXOR  or op_alu=XORI     else
@@ -196,7 +214,8 @@ begin
         (0=>menorU, others=>'0')             when  op_alu=SLTU  or op_alu=SLTIU    else
         (0=>menorS, others=>'0')             when  op_alu=SLT   or op_alu=SLTI     else
         op1(31 downto 28) & op2(27 downto 0) when  op_alu=J     or op_alu=JAL      else
-        op1                                  when  op_alu=JR    or op_alu=JALR     else
+        op1                                  when  op_alu=JR    or op_alu=JALR     
+                                                                or op_alu=MOVN     else -- @inserido instrução MOVN
         to_StdLogicVector(to_bitvector(op1) sll  CONV_INTEGER(op2(10 downto 6)))   when
 													op_alu=SSLL   else
         to_StdLogicVector(to_bitvector(op2) sll  CONV_INTEGER(op1(5 downto 0)))    when
@@ -228,13 +247,13 @@ entity datapath is
       port(  ck, rst :     in std_logic;
              d_address :   out std_logic_vector(31 downto 0);
              data :        inout std_logic_vector(31 downto 0);
-				 inst_branch_out, salta_out : out std_logic;
+		     inst_branch_out, salta_out, move_out : out std_logic; -- @inserido MOVN
              end_mul :	   out std_logic;
              end_div :	   out std_logic;
              RESULT_OUT :  out std_logic_vector(31 downto 0);
              uins :        in microinstruction;
              IR_IN :  		in std_logic_vector(31 downto 0);
-				 NPC_IN : 		in std_logic_vector(31 downto 0)
+			 NPC_IN : 		in std_logic_vector(31 downto 0)
           );
 end datapath;
 
@@ -245,18 +264,18 @@ architecture datapath of  datapath is
     signal adD, adS : std_logic_vector(4 downto 0) := (others=> '0');
     signal inst_branch, inst_R_sub, inst_I_sub: std_logic;
     signal salta : std_logic := '0';
+    signal move  : std_logic := '0'; -- @inserido MOVN
     signal produto : std_logic_vector(63 downto 0);
 begin
 
    -- auxiliary signals
-   inst_branch  <= '1' when uins.i=BEQ or uins.i=BGEZ or uins.i=BLEZ or uins.i=BNE else
+    inst_branch  <= '1' when uins.i=BEQ or uins.i=BGEZ or uins.i=BLEZ or uins.i=BNE or uins.i=BGTZ else -- @inserido instrução BGTZ
                   '0';
-	inst_branch_out <= inst_branch;
+    inst_branch_out <= inst_branch;
 
 	-- inst_R_sub is a subset of R-type instructions
-   inst_R_sub  <= '1' when uins.i=ADDU or uins.i=SUBU or uins.i=AAND
-                         or uins.i=OOR or uins.i=XXOR or uins.i=NNOR else
-                   '0';
+    inst_R_sub  <= '1' when uins.i=ADDU or uins.i=SUBU or uins.i=AAND
+                        or uins.i=OOR or uins.i=XXOR or uins.i=NNOR else '0';
 
 	-- inst_I is a subset of I-type instructions
    inst_I_sub  <= '1' when uins.i=ADDIU or uins.i=ANDI or uins.i=ORI or uins.i=XORI else
@@ -318,9 +337,14 @@ begin
 
    -- evaluation of conditions to take the branch instructions
    salta <=  '1' when ( (RS=RT  and uins.i=BEQ)  or (RS>=0  and uins.i=BGEZ) or
-                        (RS<=0  and uins.i=BLEZ) or (RS/=RT and uins.i=BNE) )  else
+                        (RS<=0  and uins.i=BLEZ) or (RS/=RT and uins.i=BNE)  or
+                        (RS>0 and uins.i=BGTZ) )  else -- @inserido instrução BGTZ
              '0';
    salta_out <= salta;
+
+   move <= '1' when (RT/=0 and uins.i=MOVN) -- @inserido instrução MOVN
+        else '0';
+   move_out <= move; -- @inserido instrução MOVN
 
 	-- multiplier and divider instantiations
    inst_mult: entity work.multiplica
@@ -332,7 +356,7 @@ begin
       port map (divisor=>R2,dividendo=>R1, clock=>ck,
 	  start=>uins.rst_md, endop=>end_div, quociente=>quociente, resto=>resto);
 
-   D_Hi <= produto(63 downto 32) when uins.i=MULTU else
+   D_Hi <= produto(63 downto 32) when uins.i=MULTU else -- @TODO
           resto;
    D_Lo <= produto(31 downto 0) when uins.i=MULTU else
           quociente;
@@ -375,11 +399,12 @@ begin
    M4: adD <= "11111"           when uins.i=JAL else -- JAL writes in register $31
          IR_IN(15 downto 11)    when (inst_R_sub='1'
 								or uins.i=SLTU or uins.i=SLT
-								or uins.i=JALR
+								or uins.i=JALR or uins.i=CLO -- @inserido instrução CLO
 								or uins.i=MFHI or uins.i=MFLO
 								or uins.i=SSLL or uins.i=SLLV
 								or uins.i=SSRA or uins.i=SRAV
-								or uins.i=SSRL or uins.i=SRLV) else
+                                or uins.i=SSRL or uins.i=SRLV
+                                or uins.i=MOVN) else -- @inserido instrução MOVN
          IR_IN(20 downto 16) -- inst_I_sub='1' or uins.i=SLTIU or uins.i=SLTI
         ;                 -- or uins.i=LW or  uins.i=LBU  or uins.i=LUI, or default
 
@@ -411,10 +436,10 @@ entity control_unit is
 end control_unit;
 
 architecture control_unit of control_unit is
-   type type_state is (Sfetch, Sreg, Salu, Swbk, Sld, Sst, Ssalta); -- Sidle,
-   signal PS, NS : type_state;
-   signal i : inst_type;
-	signal uins_int : microinstruction;
+    type type_state is (Sfetch, Sreg, Salu, Smove, Swbk, Sld, Sst, Ssalta); -- Sidle, @inserido instrução MOVN
+    signal PS, NS : type_state;
+    signal i : inst_type;
+    signal uins_int : microinstruction;
 	signal dtpc, npc, pc, incpc, IR  : std_logic_vector(31 downto 0);
 begin
 
@@ -466,7 +491,7 @@ begin
            ANDI   when IR(31 downto 26)="001100" else
            ORI    when IR(31 downto 26)="001101" else
            XORI   when IR(31 downto 26)="001110" else
-           CLO    when IR(31 downto 26)="011100" and IR(20 downto 16)="00000" and IR(10 downto 0)="00000100001" else -- @Inserido instrucao CLO
+           CLO    when IR(31 downto 26)="011100" and IR(20 downto 16)="00000" and IR(10 downto 0)="00000100001" else -- @inserido instrucao CLO
            LUI    when IR(31 downto 26)="001111" else
            LW     when IR(31 downto 26)="100011" else
            LBU    when IR(31 downto 26)="100100" else
@@ -477,7 +502,7 @@ begin
            SLTIU  when IR(31 downto 26)="001011"                             else
            SLTI   when IR(31 downto 26)="001010"                             else
            BEQ    when IR(31 downto 26)="000100" else
-           BGTZ   when IR(31 downto 26)="001001" else -- @Inserido instrucao BGTZ
+           BGTZ   when IR(31 downto 26)="001001" else -- @inserido instrucao BGTZ
            BGEZ   when IR(31 downto 26)="000001" and IR(20 downto 16)="00001" else
            BLEZ   when IR(31 downto 26)="000110" and IR(20 downto 16)="00000" else
            BNE    when IR(31 downto 26)="000101" else
@@ -486,8 +511,8 @@ begin
            JALR   when IR(31 downto 26)="000000"  and IR(20 downto 16)="00000"
                                            and IR(10 downto 0) = "00000001001" else
            JR     when IR(31 downto 26)="000000" and IR(20 downto 0)="000000000000000001000" else
-           MOVN   when IR(31 downto 26)="000000" and IR(10 downto 0)="00000000010" else -- @Inserido instrucao MOVN
-           MSUBU  when IR(31 downto 26)="011100" and IR(5 downto 0)="000101" else -- @Inserido instrucao MSUBU
+           MOVN   when IR(31 downto 26)="000000" and IR(10 downto 0)="00000000010" else -- @inserido instrucao MOVN
+           MSUBU  when IR(31 downto 26)="011100" and IR(5 downto 0)="000101" else -- @inserido instrucao MSUBU
            MULTU  when IR(31 downto 26)="000000" and IR(15 downto 0)="0000000000011001" else
            DIVU   when IR(31 downto 26)="000000" and IR(15 downto 0)="0000000000011011" else
            MFHI   when IR(31 downto 16)=x"0000" and IR(10 downto 0)="00000010000" else
@@ -512,7 +537,8 @@ begin
 
     uins_int.wmdr  <= '1' when PS=Sld            else '0';
 
-    uins_int.wreg   <= '1' when PS=Swbk or (PS=Ssalta and (i=JAL or i=JALR)) else   '0';
+    uins_int.wreg   <= '1' when PS=Swbk or (PS=Ssalta and (i=JAL or i=JALR)) 
+                                        or (PS=Smove and (i=MOVN)) else '0'; -- @inserido instrução MOVN
 
     uins_int.rw    <= '0' when PS=Sst            else  '1';
 
@@ -564,9 +590,11 @@ begin
 								elsif (i=SB or i=SW) then
 										NS <= Sst;
 								elsif (i=J or i=JAL or i=JALR or i=JR or i=BEQ
-                               or i=BGEZ or i=BLEZ  or i=BNE) then
+                                or i=BGEZ or i=BLEZ  or i=BNE or i=BGTZ) then -- @inserido instrução BGTZ
 										NS <= Ssalta;
-								elsif ((i=MULTU and end_mul='0') or (i=DIVU and end_div='0')) then
+                                elsif (i=MOVN) then
+                                        NS <= Smove;
+                                elsif ((i=MULTU and end_mul='0') or (i=DIVU and end_div='0')) then
 										NS <= Salu;
 								elsif ((i=MULTU and end_mul='1') or (i=DIVU and end_div='1')) then
 										NS <= Sfetch;
@@ -607,12 +635,12 @@ end MIPS_MCS;
 architecture MIPS_MCS of MIPS_MCS is
       signal IR, NPC, RESULT: std_logic_vector(31 downto 0);
       signal uins: microinstruction;
-	  signal inst_branch, salta, end_mul, end_div: std_logic;
+	  signal inst_branch, salta, move, end_mul, end_div: std_logic; -- @inserido instrução MOVN
  begin
 
      dp: entity work.datapath
          port map(ck=>clock, rst=>reset, d_address=>d_address, data=>data,
-		  inst_branch_out=>inst_branch, salta_out=>salta,
+		  inst_branch_out=>inst_branch, salta_out=>salta, move_out=>move, -- @inserido instrução MOVN
 		  end_mul=>end_mul, end_div=>end_div, RESULT_OUT=>RESULT,
 		  uins=>uins, IR_IN=>IR, NPC_IN=>NPC);
 
